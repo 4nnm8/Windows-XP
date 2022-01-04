@@ -1,0 +1,307 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {font-size:100%;height:100%;}
+
+body {
+  margin:0;
+  padding:0;
+  position: relative;
+  overflow: hidden;
+}
+
+body > section {
+  align-self: stretch;
+}
+
+.com__toolbar {
+  position: relative;
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  line-height: 100%;
+  height: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(237, 237, 229) 0%, rgb(237, 232, 205) 100%) repeat scroll 0% 0%;
+  user-select: none
+}
+
+.com__options {
+  height: 23px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1px 0px 1px 2px;
+  border-left: 0px none;
+  flex: 1 1 0%;
+}
+
+.drop-down {
+  font-size: 11px;
+  height: 100%;
+  position: relative;
+}
+.drop-down:hover {
+	 background-color: rgb(22, 96, 232);
+}
+
+.drop-down__label--active {
+  background-color: rgb(22, 96, 232);
+  color: rgb(255, 255, 255);
+}
+
+.drop-down__label {
+  padding: 0px 7px;
+}
+
+.drop-down__label:hover {
+  background-color: rgb(22, 96, 232);
+  color: rgb(255, 255, 255);
+}
+
+.com__windows-logo {
+  height: 100%;
+  border-left: 1px solid white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bvzUWv {
+    display: inline-flex;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+}
+
+.com__function_bar {
+    height: 36px;
+    display: flex;
+    -moz-box-align: center;
+    align-items: center;
+    font-size: 11px;
+    padding: 1px 3px 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    background: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(237, 237, 229) 0%, rgb(237, 232, 205) 100%) repeat scroll 0% 0%;
+    user-select: none
+}
+.com__function_bar__button--disable {
+    filter: grayscale(1);
+    opacity: 0.7;
+    display: flex;
+    height: 100%;
+    -moz-box-align: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+.com__function_bar__separate {
+    height: 90%;
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 0px 2px;
+}
+.com__function_bar__arrow::before {
+    content: "";
+    display: block;
+    border-width: 3px 3px 0px;
+    border-color: rgb(0, 0, 0) transparent;
+    border-style: solid;
+}
+ .com__function_bar__text {
+    margin-right: 4px;
+}
+ .com__function_bar__button {
+    display: flex;
+    height: 100%;
+    -moz-box-align: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 3px;
+}
+.com__function_bar__button:hover { border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: rgba(0, 0, 0, 0.1) 0px -1px 1px inset; }
+.com__function_bar__button:hover:active { border: 1px solid rgb(185, 185, 185); background-color: rgb(222, 222, 222); box-shadow: rgba(255, 255, 255, 0.7) 0px -1px 1px inset; color: rgba(255, 255, 255, 0.7); }
+.com__function_bar__button:hover:active > * { transform: translate(1px, 1px); }
+.com__function_bar__button--disable { filter: grayscale(1); opacity: 0.7; display: flex; height: 100%; -moz-box-align: center; align-items: center; border: 1px solid rgba(0, 0, 0, 0); }
+.com__function_bar__icon--normalize {
+    height: 22px;
+    width: 22px;
+    margin: 0px 4px 0px 1px;
+}
+.com__function_bar__icon--margin12 {
+    height: 22px;
+    width: 22px;
+    margin: 0px 1px 0px 2px;
+}
+
+ .address-bar {
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  height: 24px;
+  font-size: 11px;
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  padding: 0px 2px;
+  box-shadow: rgb(176, 176, 176) 0px -2px 3px -1px inset;
+  background: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(237, 237, 229) 0%, rgb(237, 232, 205) 100%) repeat scroll 0% 0%;
+  user-select: none
+}
+
+ .address-bar__title {
+  line-height: 100%;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+}
+
+ .address-bar__content {
+  border: 1px solid rgba(122, 122, 255, 0.6);
+  height: 100%;
+  display: flex;
+  flex: 1 1 0%;
+  -moz-box-align: center;
+  align-items: center;
+  background-color: white;
+  position: relative;
+}
+
+ .address-bar__content__img {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+}
+
+ .address-bar__content__img:last-child {
+  width: 17px;
+  height: 17px;
+  right: 2px;
+  bottom: 2px;
+  position: absolute;
+}
+
+ .address-bar__content__img:last-child:hover {
+  filter: brightness(1.1);
+}
+
+ .address-bar__content__text {
+  border: transparent !important;
+  height: 21px !important;
+  width: 100%;
+  left: 16px;
+  right: 17px;
+}
+
+ .address-bar__go {
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  padding: 0px 18px 0px 5px;
+  height: 100%;
+  position: relative;
+}
+
+ .address-bar__go__img {
+  height: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-right: 3px;
+  margin-bottom: 2px
+}
+
+ .address-bar__links {
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  padding: 0px 18px 0px 5px;
+  height: 100%;
+  position: relative;
+}
+
+ .address-bar__links__img {
+  position: absolute;
+  right: 2px;
+  top: 3px;
+  height: 5px;
+  width: 8px;
+}
+
+ .address-bar__links__text {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+ .address-bar__separate {
+  height: 100%;
+  width: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(255, 255, 255, 0.7) 1px 0px;
+}
+
+ .com__content {
+  flex: 1 1 auto;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-style: solid;
+  border-width: 0px 1px 1px;
+  border-image: none 100% / 1 / 0 stretch;
+  background-color: rgb(241, 241, 241);
+  overflow: auto;
+  font-size: 11px;
+  position: relative;
+}
+
+
+
+.winxp button {
+  font-family: "Pixelated MS Sans Serif", Arial;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid #003c74;
+  background: linear-gradient(180deg, #fff, #ecebe5 86%, #d8d0c4);
+  box-shadow: none;
+  min-width: 75px;
+  min-height: 23px;
+  padding: 0 12px;
+  border-radius: 3px
+}
+
+.winxp  button:not(:disabled).active,
+.winxp button:not(:disabled):active {
+  box-shadow: none;
+  background: linear-gradient(180deg, #cdcac3, #e3e3db 8%, #e5e5de 94%, #f2f2f1)
+}
+
+.winxp button:not(:disabled):hover {
+  box-shadow: inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a
+}
+
+.winxp button.focused,
+.winxp  button:focus {
+  box-shadow: inset -1px 1px #cee7ff, inset 1px 2px #98b8ea, inset -2px 2px #bcd4f6, inset 1px -1px #89ade4, inset 2px -2px #89ade4
+}
+.winxp  button::-moz-focus-inner {
+  border: 0
+}
+
+
+
+
+
+.status-bar {
+  margin: 0 3px;
+  box-shadow: inset 0 1px 2px grey;
+  padding: 2px 1px;
+}
+
+.status-bar-field {
+  font-family: "Pixelated MS Sans Serif", Arial;
+  -webkit-font-smoothing: antialiased;
+  box-shadow: none;
+  padding: 1px 2px;
+  border-right: 1px solid rgba(208, 206, 191, .75);
+  border-left: 1px solid hsla(0, 0%, 100%, .75)
+}
+
+.status-bar-field:first-of-type {
+  border-left: none
+}
+
+.status-bar-field:last-of-type {
+  border-right: none
+}
