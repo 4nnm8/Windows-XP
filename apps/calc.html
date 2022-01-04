@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+
+	<meta charset="UTF-8">
+ 	<title>calc.exe</title>
+  <link rel="stylesheet" href="../css/basic-window.css" />
+	<style>
+
+	  body {
+	  	margin: 0;
+	  	padding: 0;
+      padding-bottom:5px;
+	  }
+
+	  .window-content {
+	    padding: 0 10px;
+	  }
+	  button {
+	    color: blue;
+	    width: 43px;
+	    min-width: unset;
+	    height: 35px;
+	    font-family: "Pixelated MS Sans Serif",Arial;
+	    -webkit-font-smoothing: antialiased;
+	    font-size: 11px;
+	    border: 1px solid #003c74;
+	    background: linear-gradient(180deg,#fff,#ecebe5 86%,#d8d0c4);
+	    box-shadow: none;
+	    border-radius: 3px;
+	    margin-bottom: 6px;
+	    font-size: .8rem;
+	    padding: unset;
+	  }
+	   button:hover {
+	    box-shadow: inset -1px 1px #fff0cf,inset 1px 2px #fdd889,inset -2px 2px #fbc761,inset 2px -2px #e5a01a;
+	  }
+	   button:active {
+	    box-shadow: none;
+	    background: linear-gradient(180deg,#cdcac3,#e3e3db 8%,#e5e5de 94%,#f2f2f1);
+	  }
+	   button:focus{
+	    box-shadow: inset -1px 1px #cee7ff,inset 1px 2px #98b8ea,inset -2px 2px #bcd4f6,inset 1px -1px #89ade4,inset 2px -2px #89ade4;
+	    outline: 1px dotted #000;
+	    outline-offset: -4px;
+
+	  }
+	  .red {
+	    color: red;
+	  }
+	  #calc-screen {
+	    width: 95%;
+	    margin-left: 2.5%;
+	    margin-top: 2px;
+	    margin-bottom: 18px;
+	    height: 28px;
+	    text-align: right;
+	    border-radius: 0;
+	    background: #fff;
+	    color: #000;
+	    border: 1px solid #888;
+	  }
+	   .window-content button.big {
+	    width: 75px;
+	  }
+	  #calc-control {
+	    width: 30px;
+	    height: 30px;
+	    transform: translateY(2px);
+	    margin-left: 7px;
+	    margin-right: 16px;
+	  }
+	  .left {
+	    margin-right: 10px
+	  }
+	</style>
+</head>
+<body>
+
+
+<section class="com__toolbar">
+  <div class="com__options">
+    <div class="sc-bwzfXH bvzUWv">
+      <div class="drop-down">
+        <div class="drop-down__label ">
+          &Eacute;dition</div>
+      </div>
+      <div class="drop-down">
+        <div class="drop-down__label ">
+          Affichage</div>
+      </div>
+      <div class="drop-down">
+        <div class="drop-down__label ">
+          Aide</div>
+      </div>
+     </div>
+  </div>
+</section>
+
+<section class="window-content">
+  <input type="text" placeholder="0." id="calc-screen" pattern="[0-9+e.-]" disabled /><br/>
+  <input type="text" disabled id="calc-control" />
+  <button  class="big red" id="backspace">Backspace</button> <button class="big red" id="CE">CE</button>  <button class="big red" id="C">C</button><br/>
+  <button class="red left" id="calc-mc">MC</button> <button class="nb">7</button> <button class="nb">8</button> <button class="nb">9</button> <button class="red" id="divide">/</button> <button id="sqrt">sqrt</button><br/>
+  <button class="red left" id="calc-mr">MR</button> <button class="nb">4</button> <button class="nb">5</button> <button class="nb">6</button> <button class="red" id="times">*</button> <button id="percent">%</button><br/>
+  <button class="red left" id="calc-ms">MS</button> <button class="nb">1</button> <button class="nb">2</button> <button class="nb">3</button> <button class="red" id="minus">-</button> <button id="oneover">1/x</button><br/>
+  <button class="red left" id="calc-mp">M+</button> <button class="nb">0</button> <button id="invert">+/-</button> <button id="dot">.</button> <button class="red" id="plus">+</button> <button id="equal">=</button>
+</section>
+
+<script>
+  var storage,
+      operator,
+      result = false,
+      lastop,
+      old,
+      memory;
+
+      function showVariables() {
+        console.log(
+          'store : ' + storage + '\n' +
+          'operator : ' + operator  + '\n' +
+          'result : ' + result + '\n' +
+          'lastop : ' + lastop + '\n' +
+          'old : ' + old + '\n' +
+          'memory : ' + memory + '\n'
+        )
+      }
+
+  const 
+  $id = (a) => {return document.getElementById(a)},
+  screen = $id('calc-screen'), 
+  clearScreen = () => {
+    screen.value = '';
+    screen.placeholder = '0.';
+  },
+  store = () => {
+    if (screen.value !== '') {
+      storage = screen.value;
+    }
+  }
+  firstChar = () => {
+    console.log(screen.value.substring(0, 1))
+    return screen.value.substring(0, 1)
+  }
+  fnNumber = (n) => {
+    if (result) screen.value = '';
+    if (0 === firstChar()) {return false}
+    screen.value += n;
+    result = false;
+    lastop = void 0;
+  },
+  fnC = () => { 
+    lastop = operator = old = void 0;
+    clearScreen()
+  },
+  fnCE = () => {
+
+  },
+  fnMC= () => {
+    //OK // MC = Memory Clear sets the memory to 0 
+    memory = void 0;
+    $id('calc-control').value = '';
+  },
+  fnMS = () => {
+    // MS = Memory Store puts the number on the display into the memory 
+    screen.value !== '' && (memory = screen.value, $id('calc-control').value = 'M')
+  },
+  fnMP = () => {
+    // M+ = Memory Add takes the number on the display, adds it to the memory, and puts the result into memory
+    if (screen.value == '' && !memory) {
+      memory = 0;
+    } else if (!memory) {
+      memory = +screen.value
+    } else {
+      memory = eval(+screen.value + +memory)
+    }
+    $id('calc-control').value = 'M';
+    
+  },
+  fnMR = () => {
+    // MR = Memory Recall uses the number in memory, acts as if you had keyed in that number yourself
+    memory && (screen.value = memory)
+  },
+  fnBackspace = () => {
+    lastop = void 0;
+    if (screen.value !== '') {
+      screen.value = screen.value.slice(0, -1)
+    }
+  },
+  fnSqrt = () => {
+    lastop = void 0;
+    if (screen.value !== '') {
+      screen.value = Math.sqrt(screen.value);
+    }
+  },
+  fnInvert = () => {
+    lastop = void 0;
+    screen.value = -1*screen.value
+  },
+  fnDivide = (e) => {
+    e.preventDefault();
+    lastop = void 0
+    store()
+    clearScreen()
+    operator = "/"
+  },
+  fnMinus = () => {
+    lastop = void 0
+    store()
+    clearScreen()
+    operator = "-"
+  },
+  fnPlus = () => {
+    lastop = void 0
+    store()
+    clearScreen()
+    operator = "+"
+  },
+  fnTimes = () => {
+    lastop = void 0
+    store()
+    clearScreen()
+    operator = "*"
+  },
+  fnOneOver = () => {
+    lastop = void 0;
+    let ev = eval(1/screen.value);
+    if (ev === Infinity) {
+      screen.value = '';
+      screen.placeholder = 'ERROR';
+    } else {
+      screen.value = ev;
+    }
+  },
+  fnPercent = () => {
+    lastop = void 0
+    screen.value = screen.value * 0.01
+  },
+  fnDot = () => {
+    if (screen.value.indexOf('.') == -1) {
+      screen.value += "."
+    }
+  },
+  fnEqual = () => {
+    if (lastop) {
+      screen.value = eval(screen.value+lastop);
+    } else {
+      old = screen.value;
+      console.log('result : '+ storage + operator + screen.value)
+      screen.value = eval(storage+operator+screen.value).toString().replace('Infinity','');
+      screen.placeholder = 'ERROR';
+      result = true;
+      lastop = operator+old;
+      operator = void 0;
+    }
+  }
+  
+  document.querySelectorAll('.nb').forEach(function(a){
+    a.addEventListener('click', function(e){
+      fnNumber(this.innerHTML)
+    },!1);
+  })
+
+  $id('C').addEventListener('click',fnC);
+  $id('calc-mp').addEventListener('click',fnMP);
+  $id('calc-mc').addEventListener('click',fnMC);
+  $id('calc-ms').addEventListener('click',fnMS);
+  $id('calc-mr').addEventListener('click',fnMR);
+  $id('backspace').addEventListener('click',fnBackspace)
+  $id('sqrt').addEventListener('click',fnSqrt);
+  $id('invert').addEventListener('click',fnInvert);
+  $id('divide').addEventListener('click',fnDivide);
+  $id('minus').addEventListener('click',fnMinus);
+  $id('plus').addEventListener('click',fnPlus);
+  $id('times').addEventListener('click',fnTimes);
+  $id('oneover').addEventListener('click',fnOneOver);
+  $id('percent').addEventListener('click',fnPercent);
+  $id('equal').addEventListener('click',fnEqual);
+  $id('dot').addEventListener('click',fnDot);
+  
+
+
+  document.addEventListener('click',showVariables)
+  document.addEventListener('keydown', function(e) {
+    //console.log(e.code)
+    switch (e.code) {
+      case "Numpad0" : case "Digit0": fnNumber('0');break;
+      case "Numpad1" : case "Digit1": fnNumber('1');break;
+      case "Numpad2" : case "Digit2": fnNumber('2');break;
+      case "Numpad3" : case "Digit3": fnNumber('3');break;
+      case "Numpad4" : case "Digit4": fnNumber('4');break;
+      case "Numpad5" : case "Digit5": fnNumber('5');break;
+      case "Numpad6" : case "Digit6": fnNumber('6');break;
+      case "Numpad7" : case "Digit7": fnNumber('7');break;
+      case "Numpad8" : case "Digit8": fnNumber('8');break;
+      case "Numpad9" : case "Digit9": fnNumber('9');break;
+      case "NumpadEnter" : case "Enter": fnEqual() ;break;
+      case "KeyR" : fnOneOver(); break;
+      case "NumpadDecimal" : case "Semicolon": fnDot(); break;
+      case "NumpadAdd" : fnPlus(); break;
+      case "NumpadSubtract" : fnMinus(); break;
+      case "NumpadMultiply" : fnTimes(); break;
+      case "NumpadDivide" : fnDivide(e); break;
+      case "Backspace" : fnBackspace(); break;
+      case "Delete" : fnCE(); break;
+      case "Escape" : fnC(); break;
+      case "F9" : fnInvert(); break;
+      default: return false;
+
+    }
+    showVariables();
+
+    /*
+  M+ CTRL+P
+   MC CTRL+L
+    MR CTRL+R
+     MS CTRL+M
+      pi p
+       sqrt (std) @
+*/
+
+  });
+
+      window.addEventListener('load', function(){
+      clearScreen();
+      $id('calc-control').value = ''
+    });
+
+</script>
+</body>
+</html>
