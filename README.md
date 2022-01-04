@@ -1,4 +1,4 @@
-If you're interested, you're help is welcome :)
+If you're interested, your help is very welcome :)
 
 Sorry I'm french so the interface is writen this way (but the code is in english)
 
