@@ -1,5 +1,4 @@
 var curSel = document.getElementById('cursor-selector'),
-    icons = document.querySelectorAll('.desktop-icon'),
     iconsPos = [],
     x1 = 0, y1 = 0, x2 = 0, y2 = 0,
     renamedIcon,
@@ -7,16 +6,21 @@ var curSel = document.getElementById('cursor-selector'),
     drawSelection = false,
     movable = false,
     copiedIcons = [],
+    deletedIcons = [],
     copyCutAction;
 
-const 
+const
 vw = document.body.clientWidth,
 vh = document.body.clientHeight,
 
-copyCutIcons = (a) => {
-  copyCutAction = a;
+copyCutIcons = () => {
   copiedIcons.length = 0;
   copiedIcons = document.querySelectorAll('.focusedicon:not(.undeletable)');
+  if (copyCutAction) {
+    copiedIcons.forEach(function(a) {
+      a.classList.add('cut')
+    })
+  }
 },
 pasteIcons = () => {
   copiedIcons.forEach(function(a){
@@ -24,17 +28,25 @@ pasteIcons = () => {
         slot = document.createElement('div');
     slot.className = 'icon-slot';
     duplicated.classList.remove('focusedicon');
+    duplicated.classList.remove('cut');
+    duplicated.style.position = ''
     slot.appendChild(duplicated);
-    generateIconsActions(duplicated);
     desktop.appendChild(slot);
+    generateIconsActions(duplicated);
+    if (copyCutAction) {
+      a.parentNode.remove()
+    }
   });
-  copiedIcons.length = 0;
+  copiedIcons = [];
+  copyCutAction = void 0;
+  getIconsPositions();
 },
 deleteIcons = () => {
   document.querySelectorAll('.focusedicon').forEach(function(a) {
     if (!a.classList.contains('undeletable')) {
       /*document.getElementById('trash').querySelector('.window-content').appendChild(a);*/
       /*a.classList.remove('focusedicon');*/
+      deletedIcons.push(a)
       a.remove();
       getIconsPositions();
     }
@@ -49,12 +61,12 @@ getIconCenter = (a) => {
 },
 getIconsPositions = () => {
   iconsPos = [];
-  icons.forEach(function(a) {
+  document.querySelectorAll('.desktop-icon').forEach(function(a) {
     iconsPos.push([getIconCenter(a)[0], getIconCenter(a)[1]])
   });
 },
 clearIconSelection = (icon) => {
-  icons.forEach(function(a) {
+  document.querySelectorAll('.desktop-icon').forEach(function(a) {
     a.classList.remove('focusedicon');
     icon && icon.classList.add('focusedicon')
   })
@@ -96,65 +108,73 @@ renameIconDone = (valid) => {
   renamedIcon = void 0;
   previousFileName = void 0;
 },
-generateIconsActions = (item) => {
-  item.addEventListener('dblclick', function(e) {         /**** OPENS WINDOW ****/
-    openWindow(this)
-  });
-  item.addEventListener('mousedown', function(e){         /**** DESELECT ALL ICONS BUT THE CLICKED ONE ****/
-    clearIconSelection(this)
-  });
-  item.addEventListener('contextmenu', function(e) {      /**** OPENS CONTEXT MENU ON ICON ****/
-    e.preventDefault()
-    iconContextMenu(this)
-  })
-  item.onmousedown = function(event) {
-    if (event.button === 2) return false;
-    var innerItemWidth = item.offsetWidth,
-        innerItemHeight = item.offsetHeight,
-        desk_width = desktop.offsetWidth,
-        desk_height = desktop.offsetHeight,
-        l = desktop.offsetLeft + 50,
-        t = desktop.offsetTop + 25,
-        maxx = l + desk_width - innerItemWidth,
-        maxy = l + desk_height - innerItemHeight,
-    movable = true;
-    moveAt(event.pageX, event.pageY);
-    
-    function moveAt(pageX, pageY) {
-      if (movable) {
-        if (pageY <= maxy && pageY >= t) {
-          item.style.top = pageY - 25 + 'px';
-        }
-        if (pageX <= maxx && pageX >= l) {
-          item.style.left = pageX - 50 + 'px';
-        }
+moveIcons = (item,e) => {
+  var innerItemWidth = item.offsetWidth,
+      innerItemHeight = item.offsetHeight,
+      desk_width = desktop.offsetWidth,
+      desk_height = desktop.offsetHeight,
+      l = desktop.offsetLeft + 50,
+      t = desktop.offsetTop + 25,
+      maxx = l + desk_width - innerItemWidth,
+      maxy = l + desk_height - innerItemHeight,
+      movable = true;
+      moveAt(e.pageX, e.pageY);
+
+  function moveAt(pageX, pageY) {
+    if (movable) {
+      if (pageY <= maxy && pageY >= t) {
+        item.style.top = pageY - 25 + 'px';
+      }
+      if (pageX <= maxx && pageX >= l) {
+        item.style.left = pageX - 50 + 'px';
       }
     }
-    function onMouseMove(event) {
-      item.style.position = 'absolute';
-      moveAt(event.pageX, event.pageY);
-    }
-    desktop.addEventListener('mousemove', onMouseMove);
+  }
+  function onMouseMove(e) {
+    item.style.position = 'absolute';
+    moveAt(e.pageX, e.pageY);
+  }
+  desktop.addEventListener('mousemove', onMouseMove);
 
-    item.onmouseup = function() {
-      desktop.removeEventListener('mousemove', onMouseMove);
-      item.onmouseup = null;
-      movable = false;
-      getIconsPositions();
-    };
-    item.ondragstart = function() {
-      return false;
-    };
+  item.onmouseup = function() {
+    desktop.removeEventListener('mousemove', onMouseMove);
+    item.onmouseup = null;
+    movable = false;
+    getIconsPositions();
+  };
+  item.ondragstart = function() {
+    return false;
+  };
+},
+generateIconsActions = (item) => {
+  item.addEventListener('dblclick', function(e) {
+    openWindow(this)
+  });
+  item.addEventListener('contextmenu', function(e) {
+    e.preventDefault()
+  })
+  item.onmousedown = function(e) {
+    if (e.button === 2) {
+      iconContextMenu(this);
+    } else if (e.button === 0) {
+      clearIconSelection(this);
+      moveIcons(item,e)
+    }
   };
 },
 iconContextMenu = (a) => {
-  if ($id('temp-context-menu')) $id('temp-context-menu').remove();
-  let app = a.getAttribute('data-app'),
-      context = document.createElement('ul'),
+  if ($id('temp-context-menu')) {
+    $id('temp-context-menu').remove()
+    clearIconSelection()
+  };
+  if (document.querySelectorAll('.focusedicon').length < 1) {
+    a.classList.add('focusedicon')
+  }
+  let context = document.createElement('ul'),
       cutorpaste = (copiedIcons.length >> 0) ? '<li id="contxt-paste">Coller</li>' : '';
   context.id = 'temp-context-menu'
   context.className = 'temp-context-menu'
-  context.innerHTML = 
+  context.innerHTML =
   '<li id="contxt-open"><b>Ouvrir</b></li>'+
   '<hr/>'+
   '<li id="contxt-cut">Couper</li>'+
@@ -165,9 +185,8 @@ iconContextMenu = (a) => {
   '<li id="contxt-rename">Renommer</li>'+
   '<li id="contxt-delete">Supprimer</li>';
   let rect = a.getBoundingClientRect(),
-      left = rect.left,
-      top = rect.top;
-      console.log(left,top)
+      left = rect.left + 50,
+      top = rect.top + 40;
 
   context.style.top = top+'px';
   context.style.left = left+'px';
@@ -176,15 +195,16 @@ iconContextMenu = (a) => {
     switch (e.target.id) {
       case 'contxt-open': openWindow(a);break;
       case 'contxt-cut': {
-        copyCutIcons('cut')
+        copyCutAction = true;
+        copyCutIcons()
       };break;
       case 'contxt-copy': {
-        copyCutIcons('copy')
+        copyCutIcons('copy');
       };break;
       case 'contxt-paste': {
         pasteIcons()
       };break;
-      
+
       case 'contxt-shortcut': {
         let shortcut_icon = a.cloneNode(true),
             slot = document.createElement('div');
@@ -220,22 +240,28 @@ function reCalc() {
     let x = a[0],
         y = a[1];
     if (x > x3 && x < x4 && y < y4 && y > y3) {
-      icons[b].classList.add("focusedicon");
+      document.querySelectorAll('.desktop-icon')[b].classList.add("focusedicon");
     } else {
-      icons[b].classList.remove("focusedicon")
+      document.querySelectorAll('.desktop-icon')[b].classList.remove("focusedicon")
     }
   })
 }
-
+desktop.addEventListener('contextmenu', function(e){
+  e.preventDefault()
+});
 desktop.addEventListener('mousedown', function(e) {
-  if (e.target !== this || (e.button === 2)) return false
+  if (e.target !== this || (e.button === 1)) return false;
   if ($id('temp-context-menu') && e.target !== $id('temp-context-menu')) $id('temp-context-menu').remove();
   renameIconDone(true);
   clearIconSelection();
-  drawSelection = true;
-  x1 = e.clientX;
-  y1 = e.clientY;
-  reCalc();
+  if (e.button === 2) {
+    desktopContextMenu();
+  } else if (e.button === 0) {
+    drawSelection = true;
+    x1 = e.clientX;
+    y1 = e.clientY;
+    reCalc();
+  }
 }, !1);
 
 desktop.addEventListener('mousemove', function(e) {
@@ -277,7 +303,7 @@ window.addEventListener('resize', function(){
   }, 500);
 });
 getIconsPositions();
-icons.forEach(item => {
+
+document.querySelectorAll('.desktop-icon').forEach(item => {
   generateIconsActions(item);
 });
-
