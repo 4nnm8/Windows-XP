@@ -1,5 +1,7 @@
 If you're interested, you're help is welcome :)
+
 Sorry I'm french so the interface is writen this way (but the code is in english)
+
 The code is actually a mess so I try to organize and clean it so people car participate more easily
 
 TO DO LIST :
@@ -21,3 +23,5 @@ TO DO LIST :
 * Be able to create a new file or new folder with context menu (and being able to open that new folder or file)
 * Link filetype to programs so we can open files with programs (won't be easy with cross-origin programs)
 * Make a save state of the desktop (HARD)
+
+* WHATEVER you want to do !
