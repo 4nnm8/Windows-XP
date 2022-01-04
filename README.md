@@ -11,4 +11,7 @@ TO DO LIST :
 * Add proper sounds to all actions
 * Prevent resizing windows too small
 * When copying a file or a folder, add a number to avoid same name ("Image.jpg" > "Image (1).jpg", etc)
+* Merge all mousemove events because we need them often
+* Be able to create a new file or new folder with context menu
+* Link filetype to programs so we can open files with programs (won't be easy with cross-origin programs)
 * Clean that mess of a code
