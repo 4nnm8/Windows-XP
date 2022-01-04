@@ -1,3 +1,7 @@
+If you're interested, you're help is welcome :)
+Sorry I'm french so the interface is writen this way (but the code is in english)
+The code is actually a mess so I try to organize and clean it so people car participate more easily
+
 TO DO LIST :
 
 * Check if the URL to a program exists before opening it
@@ -16,5 +20,4 @@ TO DO LIST :
 * Merge all mousemove events because we need them often
 * Be able to create a new file or new folder with context menu (and being able to open that new folder or file)
 * Link filetype to programs so we can open files with programs (won't be easy with cross-origin programs)
-* Clean and organize that mess of a code
 * Make a save state of the desktop (HARD)
