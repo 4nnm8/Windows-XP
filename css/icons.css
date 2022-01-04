@@ -25,6 +25,9 @@
   font-size: .9rem;
   z-index: 1;
 }
+.desktop-icon.cut {
+  opacity:.6
+}
 .desktop-icon.shortcut > div {
   position: relative;
 }

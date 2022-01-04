@@ -4,7 +4,7 @@
   box-sizing: inherit;
   background-repeat: no-repeat;
 }
-* {
+*:not(input):not(textarea):not([contenteditable]) {
   user-select: none;
 }
 ::before, ::after {
@@ -20,12 +20,12 @@ small, strike, strong, sub, sup, tt, var,
 b, u, i, dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, section, summary,
-time, mark, audio, video {  
-  margin: 0;  
-  padding: 0;  
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
@@ -33,11 +33,11 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 html {
-  line-height: 1.15; 
-  -webkit-text-size-adjust: 100%; 
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: transparent; 
+  -webkit-tap-highlight-color: transparent;
   cursor: default;
   overflow-wrap: break-word;
   box-sizing: border-box;
@@ -58,9 +58,9 @@ h1,h2,h3,h4,h5,h6 {
   font-weight: normal;
 }
 hr {
-  box-sizing: content-box; 
-  height: 0; 
-  overflow: visible; 
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
 }
 a {
   background-color: transparent;
@@ -72,18 +72,18 @@ a, button, [type="button"], area, [aria-controls], [tabindex]:not([tabindex^="-"
   cursor: not-allowed;
 }
 abbr[title] {
-  border-bottom: none; 
-  text-decoration: underline; 
-  text-decoration: underline dotted; 
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted;
 }
 b, strong {
   font-weight: bolder;
 }
 code, kbd, samp, pre {
-  font-family: monospace, monospace; 
+  font-family: monospace, monospace;
   font-size: inherit;
 }
-q::before { content: "\00ab\00a0" } 
+q::before { content: "\00ab\00a0" }
 q::after { content: "\00a0\00bb" }
 small {
   font-size: 80%;
@@ -113,21 +113,21 @@ img, video {
 
 
 button, input, optgroup, select, textarea {
-  font: inherit; 
+  font: inherit;
   color:inherit;
-  font-size: 100%; 
-  line-height: 1.15; 
+  font-size: 100%;
+  line-height: 1.15;
   letter-spacing: inherit;
   padding: 0.25em 0.375em
-  margin: 0; 
+  margin: 0;
   border: 1px solid WindowFrame;
   background-color: transparent;
 }
 
-button, input { 
+button, input {
   overflow: visible;
 }
-button, select { 
+button, select {
   text-transform: none;
 }
 :where(select[multiple]) {
@@ -170,17 +170,17 @@ fieldset {
   border: 1px solid #a0a0a0;
 }
 legend {
-  box-sizing: border-box; 
-  color: inherit; 
-  display: table; 
-  max-width: 100%; 
-  padding: 0; 
-  white-space: normal; 
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
 }
 progress {
   vertical-align: baseline;
 }
-table { 
+table {
   border-collapse: collapse;
   border-spacing: 0;
   border-color: inherit;
@@ -196,23 +196,23 @@ textarea {
 }
 [type="checkbox"],
 [type="radio"] {
-  box-sizing: border-box; 
-  padding: 0; 
+  box-sizing: border-box;
+  padding: 0;
 }
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 [type="search"] {
-  -webkit-appearance: textfield; 
-  outline-offset: -2px; 
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
 }
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; 
-  font: inherit; 
+  -webkit-appearance: button;
+  font: inherit;
 }
 ::-webkit-input-placeholder {
   color: inherit;
@@ -274,8 +274,8 @@ textarea {
   clip-path: inset(50%) !important;
   width: 1px !important;
   height: 1px !important;
-  padding: 0 !important;  
-  margin: -1px !important; 
+  padding: 0 !important;
+  margin: -1px !important;
   overflow: hidden !important;
   position: absolute !important;
   white-space: nowrap !important;
@@ -322,12 +322,12 @@ textarea {
 .right-text {
   text-align: right;
 }
-.clear { 
-  clear:both; 
-} 
-.right { 
-  float: right; 
-} 
-.left { 
-  float: left; 
+.clear {
+  clear:both;
+}
+.right {
+  float: right;
+}
+.left {
+  float: left;
 }
