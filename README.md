@@ -17,7 +17,7 @@ TO DO LIST :
 * Allow all the actions on icons (select with cursor, copy, paste, rename) on other workspaces (not just desktop)
 * Add proper sounds to all actions
 * Add proper fonts
-* Prevent resizing windows too small
+* Prevent resizing windows too small (AND FIX THAT BUG WITH WINDOWS RESIZING DIRECTION)
 * When copying a file or a folder, add a number to avoid same name ("Image.jpg" > "Image (1).jpg", etc)
 * Merge all mousemove events because we need them often
 * Be able to create a new file or new folder with context menu (and being able to open that new folder or file)
