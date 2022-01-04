@@ -4,6 +4,8 @@ TO DO LIST :
 * Allow to drag multiple icons at one time
 * Create context popup to confirm / cancell actions (like deleting a file)
 * Allow copy/paste drag 'n drop files from a folder to another (like the trash for start)
+ --> check this out : https://stackoverflow.com/questions/10119514/html5-drag-drop-change-icon-cursor-while-dragging
+* Maybe don't use IFRAME but Web Components for Programs
 * Add context menu to programs in taskbar
 * Allow all the actions on icons (select with cursor, copy, paste, rename) on other workspaces that desktop
 * Add proper sounds to all actions
