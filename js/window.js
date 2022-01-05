@@ -26,7 +26,7 @@ openWindow = (el) => {
   }
   document.body.style.cursor = 'url(cursors/wait.cur), wait';
   var appName = el.getAttribute('data-appname'),
-      appUrl = el.getAttribute('data-url') || `apps/${appId}.html`,
+      appUrl = el.getAttribute('data-url') || `apps/${appId}/index.html`,
       appImg = file_img[appId+'_16'],
 
 
@@ -49,8 +49,7 @@ openWindow = (el) => {
        }
       // A MODIFIER !!!!!!!!!!!!
 
-
-	let n_window = document.createElement('div');
+  let n_window = document.createElement('div');
   n_window.setAttribute('class','window');
   n_window.setAttribute('id',appId);
   "false" == options.resizable && n_window.classList.add('unresizable');
@@ -97,14 +96,15 @@ openWindow = (el) => {
 
   n_window.appendChild(n_titlebar);
 
- 	let taskbar_item = document.createElement('div');
-  taskbar_item.setAttribute('class', 'item');
+  let taskbar_item = document.createElement('div');
+  taskbar_item.setAttribute('class', 'taskbar-app');
   taskbar_item.setAttribute('data-app', appId);
   taskbar_item.setAttribute('tabindex', '0');
   taskbar_item.innerHTML = `<div><img src="${appImg}" alt="${appName}" /></div><div>${appName}</div>`;
   taskbar_item.addEventListener('click', function(e){
     if ($id(appId).classList.contains('hide')) {
-      playAudio('restore')
+      playAudio('restore');
+      $id(appId).style.zIndex = '' + ++currentZIndex;
       $id(appId).classList.remove('hide');
       $id(appId).classList.remove('inactive');
       $id(appId).querySelector('iframe').focus();
@@ -124,7 +124,7 @@ openWindow = (el) => {
     if (!appClassList.contains('unresizable')) initResizeWindow(n_window);
     n_window.style.display = '';
     document.body.style.cursor = '';
-    $id('status-bar-apps').appendChild(taskbar_item);
+    $id('taskbar-apps').appendChild(taskbar_item);
     makeItFocused(n_window);
     $id(appId).querySelector('iframe').focus();
   });
@@ -133,7 +133,6 @@ maximize = (a) => {
   //if (!a.classList.contains('unresizable')) { // handled with CSS
     a.classList.add('maximize');
     a.querySelector('[aria-label=Maximize]').setAttribute('aria-label', 'Restore')
-
   //}
 },
 restore = (a) => {
@@ -146,43 +145,39 @@ minimize = (a) => {
   playAudio('minimize')
 },
 close = (a) => {
-  $id('status-bar-apps').querySelector('[data-app="' + a.id + '"]').remove();
-  document.querySelectorAll('.desktop-icon').forEach(function(b){
+  $id('taskbar-apps').querySelector('[data-app="' + a.id + '"]').remove();
+  document.querySelectorAll('.icon').forEach(function(b){
     if (b.getAttribute('data-app') == a.id) {
       b.classList.remove('opened')
     }
   });
   a.remove();
 },
-initDragWindow = (test) => {
+initDragWindow = (popup) => {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0,
-      popup = test,
-	    titlebar = popup.querySelector('.title-bar'),
       iframe = popup.querySelector('iframe');
-  const elementDrag = (e) => {
+  const elementDrag = () => {
     iframe.style.pointerEvents = 'none';
-    e = e || window.event;
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
+    pos1 = pos3 - mousex;
+    pos2 = pos4 - mousey;
+    pos3 = mousex;
+    pos4 = mousey;
     popup.style.top = popup.offsetTop - pos2 + 'px'; 
     popup.style.left = popup.offsetLeft - pos1 + 'px';
   },
   closeDragElement = () => {
-    iframe.style.pointerEvents = '';
+    iframe.style.pointerEvents = 'auto';
     document.removeEventListener('mouseup', closeDragElement);
     document.removeEventListener('mousemove', elementDrag);
   },
-  dragMouseDown = (e) => {
-    //popup.style.zIndex = '' + ++currentZIndex;
-    e = e || window.event;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
+  dragMouseDown = () => {
+    popup.style.zIndex = '' + ++currentZIndex;
+    pos3 = mousex;
+    pos4 = mousey;
     document.addEventListener('mousemove', elementDrag);
     document.addEventListener('mouseup', closeDragElement);
   }
-  titlebar.addEventListener('mousedown', dragMouseDown);
+  popup.querySelector('.title-bar').addEventListener('mousedown', dragMouseDown);
 },
 initResizeWindow = (win) => {
   var startX, startY, startWidth, startHeight,
@@ -193,30 +188,30 @@ initResizeWindow = (win) => {
 
   function initDragRight(e) {
     iframe.style.pointerEvents = 'none';
-    startX = e.clientX;
+    startX = mousex;
     startWidth = parseInt(document.defaultView.getComputedStyle(win).width, 10);
     htmlRoot.addEventListener('mousemove', doDrag, false);
     htmlRoot.addEventListener('mouseup', stopDrag, false);
   }
   function initDragBottom(e) {
     iframe.style.pointerEvents = 'none';
-    startY = e.clientY;
+    startY = mousey;
     startHeight = parseInt(document.defaultView.getComputedStyle(win).height, 10);
     htmlRoot.addEventListener('mousemove', doDrag, false);
     htmlRoot.addEventListener('mouseup', stopDrag, false);
   }
   function initDragBoth(e) {
     iframe.style.pointerEvents = 'none';
-    startX = e.clientX;
-    startY = e.clientY;
+    startX = mousex;
+    startY = mousey;
     startWidth = parseInt(document.defaultView.getComputedStyle(win).width, 10);
     startHeight = parseInt(document.defaultView.getComputedStyle(win).height, 10);
     htmlRoot.addEventListener('mousemove', doDrag, false);
     htmlRoot.addEventListener('mouseup', stopDrag, false);
   }
-  function doDrag(e) {
-    win.style.height = startHeight + e.clientY - startY + 'px';
-    win.style.width = startWidth  + e.clientX - startX + 'px';
+  function doDrag() {
+    win.style.height = startHeight + mousey - startY + 'px';
+    win.style.width = startWidth  + mousex - startX + 'px';
   }
   function stopDrag() {
     iframe.style.pointerEvents = '';
