@@ -1,5 +1,6 @@
 @charset "UTF-8";
-.desktop-area {
+
+#desktop-area {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -16,7 +17,7 @@
   height: 80px;
   margin-top: 5px
 }
-.desktop-icon {
+.win-xp .icon {
   display: block;
   text-align: center;
   text-decoration: none;
@@ -25,13 +26,13 @@
   font-size: .9rem;
   z-index: 1;
 }
-.desktop-icon.cut {
+.win-xp .icon.cut {
   opacity:.6
 }
-.desktop-icon.shortcut > div {
+.win-xp .icon.shortcut > div {
   position: relative;
 }
-.desktop-icon.shortcut > .icon-img::after {
+.win-xp .icon.shortcut > img::after {
   content: "";
   position: absolute;
   width: 11px; height: 11px;
@@ -45,14 +46,14 @@
   background: #fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHAQMAAAD6aRWtAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAZQTFRFAAAAAAAApWe5zwAAAAJ0Uk5TAP9bkSK1AAAAFklEQVR4nGOoYLBgqGB4wXCAoYHBAQAYngOR+2H1KQAAAABJRU5ErkJggg==') center no-repeat;
 
 }
-.desktop-icon:focus, .desktop-icon:active {
+.icon:focus, .icon:active {
   outline: none;
 }
 
-.desktop-icon.focusedicon img {
+.win-xp .icon.focusedicon img {
    filter: sepia(100%) brightness(35%) hue-rotate(166deg) saturate(600%) contrast(66%);
 }
-.desktop-icon .icon-text {
+.win-xp .icon .icon-text {
   padding: 0 2px;
   border: 1px solid transparent;
   display: inline-block;
@@ -62,18 +63,18 @@
   text-overflow: ellipsis;
   white-space: break-word;
 }
-.desktop-icon.renaming > .icon-text {
+.win-xp .icon.renaming > .icon-text {
   background-color: #fff !important;
   outline: 1px solid #000 !important;
   color : #000 !important;
   max-height:none;
 }
-.desktop-icon .icon-text::selection, .desktop-icon .icon-text::-moz-selection {
+.win-xp .icon .icon-text::selection, .win-xp .icon .icon-text::-moz-selection {
   color: #fff;
   background: #09275f;
 }
 
-.desktop-icon.focusedicon > .icon-text {
+.win-xp .icon.focusedicon > .icon-text {
   outline: 1px dotted #efefef;
   background: rgba(52,92,165,0.7);
   text-shadow: none
