@@ -32,7 +32,7 @@
 .win-xp .icon.shortcut > div {
   position: relative;
 }
-.win-xp .icon.shortcut > img::after {
+.win-xp .icon.shortcut > .icon-img::after {
   content: "";
   position: absolute;
   width: 11px; height: 11px;
@@ -80,11 +80,11 @@
   text-shadow: none
 }
 #cursor-selector{
-  border: 1px dotted #f00;
+  border: 1px dotted #fff;
   position: absolute;
   left:-1px;
   top:-1px;
   display: none;
-  /*mix-blend-mode: difference;*/
+  mix-blend-mode: difference;
 }
 
