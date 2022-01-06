@@ -14,12 +14,9 @@ TO DO LIST :
 * Check if the URL to a program exists before opening it
 * Avoid inline png files (data:image/png;base64...) and make CSS sprites for each icon size (16,24,32,48)
 * Allow to drag multiple icons at one time
-* Create popups to confirm / cancel actions (like deleting a file)
-* Allow copy/paste and drag 'n drop files from a folder to another (like the trash for start)
 * Maybe don't use IFRAME but Web Components for Programs
 * Add context menu to programs in taskbar (close, minimize, maximize)
 * Make a file explorer
-* Allow all the actions on icons (select with cursor, copy, paste, rename) on other workspaces (not just desktop)
 * Add proper sounds to all actions
 * Add proper fonts
 * Prevent resizing windows too small (AND FIX THAT BUG WITH WINDOWS RESIZING DIRECTION)
