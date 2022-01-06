@@ -4,6 +4,10 @@ Sorry I'm french so the interface is writen this way (but the code is in english
 
 The code is actually a mess so I try to organize and clean it so people car participate more easily
 
+Rule #1 : if you can do it with CSS, do it with CSS ! less images as possible
+Rule #2 : vanilla javascript only
+
+
 TO DO LIST :
 
 * Check if the URL to a program exists before opening it
