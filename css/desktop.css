@@ -170,15 +170,15 @@ a, button {
   margin: 0 auto;
   width: 19px; height: 19px;
   border-radius: 100%;
-  box-shadow: 
+  box-shadow:
   1px 1px 0px 0px #bbb,
   -1px -1px 0px 0px #000;
 }
 .win-xp #taskbar-notifications #taskbar-arrow:hover {
   background-image: linear-gradient(60deg, #90d7f9, #0b8ef0, #0671eb);
-  box-shadow: 
+  box-shadow:
   1px 1px 0px 0px #bbb,
-  -1px -1px 0px 0px #000,	 
+  -1px -1px 0px 0px #000,
   1px 0 3px 0px rgba(0,0,0,0.5) inset;
 }
 .win-xp #taskbar-notifications #taskbar-arrow::before {
@@ -209,7 +209,34 @@ a, button {
 #taskbar-notifications img {
   margin-top: 4px
 }
-
+.taskbar-quicklaunch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2px
+}
+#taskbar .taskbar-quicklaunch a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid transparent;
+}
+#taskbar .taskbar-quicklaunch a:hover {
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-top-color: #2660d1;
+  border-right-color: #184da7;
+  border-bottom-color: #1b49a7;
+  border-left-color: #1d5dcb;
+  background: #3a7ee8;
+  box-shadow: 1px 1px 1px 0px #7cb3f5 inset, -1px -1px 1px 0 #2965d1 inset;
+}
+#taskbar .taskbar-quicklaunch a:active {
+  /* ... */
+}
 .win-xp #start-menu {
   background: #ccc;
   width: 382px;
@@ -503,7 +530,7 @@ color: white;
   background: linear-gradient(180deg, #3d7cd6 0%, #3a85e3 25%, #1c70dc 75%, #1062d0 100%);
   width: 100%;
   height: 40px;
- 
+
   bottom: 0;
 }
 
@@ -577,4 +604,10 @@ color: white;
 .win-xp .temp-context-menu ul li {
   display: flex;
   align-items: center;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.0;
+  }
 }

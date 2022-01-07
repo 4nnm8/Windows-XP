@@ -79,12 +79,9 @@
   background: rgba(52,92,165,0.7);
   text-shadow: none
 }
-#cursor-selector{
+.cursor-selector{
   border: 1px dotted #fff;
   position: absolute;
-  left:-1px;
-  top:-1px;
   display: none;
   mix-blend-mode: difference;
 }
-
