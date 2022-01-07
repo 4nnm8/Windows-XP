@@ -6,55 +6,85 @@
 4: 5e bouton (suivant)
 */
 
-  desktop.addEventListener('mousedown', function(e) {
+  document.addEventListener('mousedown', function(e) {
     var t = e.target;
-    if (t !== this || (e.button === 1)) return false;
+    focusedWorkspace = t.closest('.workspace') || focusedWorkspace;
+    x5 = focusedWorkspace.offsetLeft;
+    y5 = focusedWorkspace.offsetTop;
+
+    if (!t.classList.contains('workspace') || (e.button === 1)) return false;
     if ($id('temp-context-menu') && t !== $id('temp-context-menu')) $id('temp-context-menu').remove();
+
     renameIconDone(true);
     clearIconSelection();
     if (e.button === 2) {
-      desktopContextMenu();
+      desktopContextMenu(e);
     } else if (e.button === 0) {
+      curSel = document.createElement('div');
+      curSel.className = 'cursor-selector';
+      focusedWorkspace.appendChild(curSel);
       drawSelection = true;
       x1 = mousex;
       y1 = mousey;
       reCalc();
     }
+
   }, !1);
   // MERGE ^<
   document.addEventListener('click', function(e) {
-    var t = e.target;
-    if (t.closest('#start-button')) {
-      $id('start-menu').classList.add('show');
-    } else {
-      $id('start-menu').classList.remove('show')
-    }
-    if (!t.closest('.window') && !t.closest('.taskbar-app')) {
-      makeItFocused()
-    }
-    if (t == $id('taskbar-arrow')) {
-      $id('taskbar-notifications').classList.toggle('reverse');
-    }
+    var parent = (p) => {return e.target.closest(p)};
+
+    parent('#start-button') ? $id('start-menu').classList.add('show') : $id('start-menu').classList.remove('show');
+
+    !parent('.window') && !parent('.taskbar-app') && makeItFocused();
+
+    parent('#taskbar-arrow') && $id('taskbar-notifications').classList.toggle('reverse');
+
+    parent('#quick-desktop') &&
+      document.querySelectorAll('.window').forEach(function(a){
+        a.classList.add('hide')
+      })
+
   });
 
-  desktop.addEventListener('mousemove', function(e) {
+  document.addEventListener('mousemove', function(e) {
     if (drawSelection) {
-      curSel.style.display = 'block';
+      curSel.style.display = 'block'
       x2 = mousex;
       y2 = mousey;
       reCalc();
     }
   }, !1);
-  desktop.addEventListener('mouseup', function(e) {
+  document.addEventListener('mouseup', function(e) {
     drawSelection = false;
-    curSel.style.display = 'none';
-    x1 = x2 = document.body.clientWidth;
-    y1 = y2 = document.body.clientHeight;
+    movable = false; // ?
+    curSel && curSel.remove();
+    curSel = void 0;
   }, !1);
-  
-
 
 /*** GLOBAL ***/
+
+  document.addEventListener('keydown', function(e){
+    let k = e.key;
+    console.log(k)
+    switch(k) {
+      case 'Delete' : deleteIcons()
+    }
+    if (!e.ctrlKey) return false;
+    var prevent = true;
+    switch (k) {
+      case 'c' : copyCutIcons();break;
+      case 'x' : isCutFile = true; copyCutIcons();break;
+      case 'v' : pasteIcons();break;
+      case 'a' : {
+        document.querySelectorAll('.icon').forEach(function(a){
+          a.classList.add('.focusedicon')
+        })
+      };break;
+      default: prevent = false;
+    }
+    prevent && e.preventDefault();
+  })
   document.addEventListener('contextmenu', function(e){
     e.preventDefault()
   });
@@ -64,7 +94,7 @@
   });
 
   document.addEventListener('mousemove', (e) => {
-    mousex = e.clientX; 
+    mousex = e.clientX;
     mousey = e.clientY;
   });
 

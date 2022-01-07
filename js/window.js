@@ -3,15 +3,15 @@
   a.style.width = b.contentWindow.document.body.offsetWidth + 8 + "px";
   a.style.height =  b.contentWindow.document.body.offsetHeight + 34 + "px";
 }*/
-const 
-htmlRoot = document.documentElement,
-makeItFocused = (a) => {  
+const
+
+makeItFocused = (a) => {
   document.querySelectorAll('.window').forEach(function(b) {
     b.classList.add('inactive');
   });
   if (a) {
   	a.classList.remove('inactive');
-  	a.querySelector('iframe').focus();
+  	a.querySelector('iframe') && a.querySelector('iframe').focus();
   }
 },
 openWindow = (el) => {
@@ -40,7 +40,7 @@ openWindow = (el) => {
        	 resizable: 'true'
        },
        options;
-              
+
        if (appOptions) {
        	 let regex = '{'+appOptions.replace(/([a-z]+):([a-z0-9]+)(,)?/gi,'"$1":"$2"$3')+'}'
          options = JSON.parse(regex)
@@ -111,7 +111,7 @@ openWindow = (el) => {
     } else {
       playAudio('minimize')
       $id(appId).classList.add('hide')
-    }    
+    }
   },!1);
 
   let iframe = document.createElement('iframe');
@@ -139,7 +139,7 @@ restore = (a) => {
   a.classList.remove('maximize');
   a.querySelector('[aria-label=Restore]').setAttribute('aria-label', 'Maximize');
   playAudio('restore')
-}, 
+},
 minimize = (a) => {
   a.classList.add('hide');
   playAudio('minimize')
@@ -155,23 +155,24 @@ close = (a) => {
 },
 initDragWindow = (popup) => {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0,
-      iframe = popup.querySelector('iframe');
+      iframe = popup.querySelector('iframe') || false;
   const elementDrag = () => {
-    iframe.style.pointerEvents = 'none';
+    iframe && (iframe.style.pointerEvents = 'none');
     pos1 = pos3 - mousex;
     pos2 = pos4 - mousey;
     pos3 = mousex;
     pos4 = mousey;
-    popup.style.top = popup.offsetTop - pos2 + 'px'; 
+    popup.style.top = popup.offsetTop - pos2 + 'px';
     popup.style.left = popup.offsetLeft - pos1 + 'px';
   },
   closeDragElement = () => {
-    iframe.style.pointerEvents = 'auto';
+    iframe && (iframe.style.pointerEvents = 'auto');
     document.removeEventListener('mouseup', closeDragElement);
     document.removeEventListener('mousemove', elementDrag);
   },
   dragMouseDown = () => {
     popup.style.zIndex = '' + ++currentZIndex;
+
     pos3 = mousex;
     pos4 = mousey;
     document.addEventListener('mousemove', elementDrag);
@@ -187,21 +188,21 @@ initResizeWindow = (win) => {
       iframe = win.querySelector('iframe');
 
   function initDragRight(e) {
-    iframe.style.pointerEvents = 'none';
+    iframe && (iframe.style.pointerEvents = 'none');
     startX = mousex;
     startWidth = parseInt(document.defaultView.getComputedStyle(win).width, 10);
     htmlRoot.addEventListener('mousemove', doDrag, false);
     htmlRoot.addEventListener('mouseup', stopDrag, false);
   }
   function initDragBottom(e) {
-    iframe.style.pointerEvents = 'none';
+    iframe && (iframe.style.pointerEvents = 'none');
     startY = mousey;
     startHeight = parseInt(document.defaultView.getComputedStyle(win).height, 10);
     htmlRoot.addEventListener('mousemove', doDrag, false);
     htmlRoot.addEventListener('mouseup', stopDrag, false);
   }
   function initDragBoth(e) {
-    iframe.style.pointerEvents = 'none';
+    iframe && (iframe.style.pointerEvents = 'none');
     startX = mousex;
     startY = mousey;
     startWidth = parseInt(document.defaultView.getComputedStyle(win).width, 10);
@@ -214,7 +215,7 @@ initResizeWindow = (win) => {
     win.style.width = startWidth  + mousex - startX + 'px';
   }
   function stopDrag() {
-    iframe.style.pointerEvents = '';
+    iframe && (iframe.style.pointerEvents = 'auto');
     htmlRoot.removeEventListener('mousemove', doDrag, false);
     htmlRoot.removeEventListener('mouseup', stopDrag, false);
   }
