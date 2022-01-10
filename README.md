@@ -6,7 +6,7 @@ The code is actually a mess so I try to organize and clean it so people car part
 
 Rule #1 : if you can do it with CSS, do it with CSS ! less images as possible
 
-Rule #2 : vanilla javascript only
+Rule #2 : vanilla javascript only, except for programs if you want
 
 
 TO DO LIST :
@@ -16,7 +16,7 @@ TO DO LIST :
 * Allow to drag multiple icons at one time
 * Maybe don't use IFRAME but Web Components for Programs
 * Add context menu to programs in taskbar (close, minimize, maximize)
-* Make a file explorer
+* Make a file explorer (with a filesystem tree in json)
 * Add proper sounds to all actions
 * Add proper fonts
 * Prevent resizing windows too small (AND FIX THAT BUG WITH WINDOWS RESIZING DIRECTION)
