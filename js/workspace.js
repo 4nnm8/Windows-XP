@@ -370,8 +370,8 @@ moveIcons = (ico,e) => {
       ws = document.querySelector('.workspace'),
       desk_width =  ws.offsetWidth,
       desk_height = ws.offsetHeight,
-      l =  ws.offsetLeft + 100,
-      t =  ws.offsetTop + 50,
+      l =  ws.getBoundingClientRect().left + 100,
+      t =  ws.getBoundingClientRect().top + 50,
       maxx = l + desk_width - innerIconWidth,
       maxy = l + desk_height - innerIconHeight,
       movable = true;
@@ -380,13 +380,13 @@ moveIcons = (ico,e) => {
   function moveAt(pageX, pageY) {
     if (movable) {
       if (pageY <= maxy && pageY >= t) {
-        ico.style.top = pageY - 25 - y5 + 'px';
+        ico.style.top = pageY - 25 - y5 + ws.scrollTop  + 'px';
       } else {
         movable = false;
         getIconsPositions();
       }
       if (pageX <= maxx && pageX >= l) {
-        ico.style.left = pageX - 50 - x5 + 'px';
+        ico.style.left = pageX - 50 - x5 + ws.scrollLeft + 'px';
       } else {
         movable = false
         getIconsPositions();
@@ -416,8 +416,8 @@ generateIconsActions = (ico) => {
   });
 
   ico.addEventListener('mousedown', function(e) {
-    x5 = document.querySelector('.workspace').offsetLeft;
-    y5 = document.querySelector('.workspace').offsetTop;
+    x5 = document.querySelector('.workspace').getBoundingClientRect().left;
+    y5 = document.querySelector('.workspace').getBoundingClientRect().top
     if (e.button === 2) {
       iconContextMenu(e,this);
     } else if (e.button === 0) {
@@ -528,8 +528,8 @@ iconContextMenu = (e,a) => {
 document.addEventListener('mousedown', function(e) {
   let t = e.target,
       ws = document.querySelector('.workspace');
-  x5 = ws.offsetLeft;
-  y5 = ws.offsetTop;
+  x5 = ws.getBoundingClientRect().left;
+  y5 = ws.getBoundingClientRect().top
   x6 = ws.scrollLeft;
   y6 = ws.scrollTop;
 
@@ -606,8 +606,8 @@ document.addEventListener('contextmenu', function(e){
 });
 
 document.addEventListener('mousemove', (e) => {
-  mousex = e.clientX;
-  mousey = e.clientY;
+  mousex = e.pageX;
+  mousey = e.pageY;
 });
 
 window.addEventListener('resize', function(){
@@ -742,7 +742,7 @@ function generateScrollbars() {
         elemToScroll = this.closest('.window-body').querySelector('.scroller');
         sI = {
           client : e.clientY,
-          scroll : elemToScroll.scrollTop,
+          scroll : elemToScroll.scrollTop - elemToScroll.getBoundingClientRect().top,
           dir : 'scrollTop',
           offset : elemToScroll.offsetHeight - 40,
           size : elemToScroll.scrollHeight,
@@ -783,7 +783,7 @@ function generateScrollbars() {
         elemToScroll = this.closest('.window-body').querySelector('.scroller');
         sI = {
           client : e.clientX,
-          scroll : elemToScroll.scrollLeft,
+          scroll : elemToScroll.scrollLeft -  elemToScroll.getBoundingClientRect().left,
           dir : 'scrollLeft',
           offset : elemToScroll.offsetWidth - 40,
           size : elemToScroll.scrollWidth,
