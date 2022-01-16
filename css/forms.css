@@ -1,0 +1,68 @@
+
+button {
+  color: #000;
+  min-width: unset;
+  font-family: Tahoma;
+  -webkit-font-smoothing: antialiased;
+  font-size: 11px;
+  border: 1px solid #003c74;
+  background: linear-gradient(180deg, #fff, #ecebe5 86%, #d8d0c4);
+  box-shadow: none;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  font-size: .8rem;
+  padding: unset;
+}
+
+button:not(:disabled):hover {
+  box-shadow: inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a;
+}
+
+button:not(:disabled)active {
+  box-shadow: none;
+  background: linear-gradient(180deg, #cdcac3, #e3e3db 8%, #e5e5de 94%, #f2f2f1);
+}
+
+button:not(:disabled):focus {
+  box-shadow: inset -1px 1px #cee7ff, inset 1px 2px #98b8ea, inset -2px 2px #bcd4f6, inset 1px -1px #89ade4, inset 2px -2px #89ade4;
+  outline: 1px dotted #000;
+  outline-offset: -4px;
+
+}
+
+/*
+
+.window-body  button {
+  -webkit-font-smoothing: antialiased;
+  font-size: 11px;
+  box-sizing: border-box;
+  border: 1px solid #003c74;
+  background: linear-gradient(180deg,#fff,#ecebe5 86%,#d8d0c4);
+  box-shadow: none;
+  border-radius: 3px;
+  min-width: 75px;
+  min-height: 23px;
+  padding: 0 12px;
+  color: #222;
+}
+
+.window-body button:not(:disabled):hover {
+    box-shadow: inset -1px 1px #fff0cf,inset 1px 2px #fdd889,inset -2px 2px #fbc761,inset 2px -2px #e5a01a;
+}
+
+.window-body button:not(:disabled).active, button:not(:disabled):active {
+    box-shadow: none;
+    background: linear-gradient(180deg, #cdcac3, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%);
+}
+.window-body button:focus {
+    box-shadow: inset -1px 1px #cee7ff,
+                inset 1px 2px #98b8ea,
+                inset -2px 2px #bcd4f6,
+                inset 1px -1px #89ade4,
+                inset 2px -2px #89ade4;
+}
+.window-body button:focus {
+    outline: 1px dotted #000;
+    outline-offset: -4px;
+}
+*/

@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.userpic {
+  border: 2px solid #b5c5e1;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px #1358ac;
+  box-sizing: content-box;
+  margin: 0 7px;
+  background-image: url('../images/userpics.png');
+  width: 48px;
+  height: 48px;
+}
+
+.bg-airplane{background-position:0 0}
+.bg-astronaut{background-position:-48px 0}
+.bg-ball{background-position:0 -48px}
+.bg-beach{background-position:-48px -48px}
+.bg-butterfly{background-position:-96px 0}
+.bg-car{background-position:-96px -48px}
+.bg-cat{background-position:0 -96px}
+.bg-chess{background-position:-48px -96px}
+.bg-dirt_bike{background-position:-96px -96px}
+.bg-dog{background-position:-144px 0}
+.bg-drip{background-position:-144px -48px}
+.bg-duck{background-position:-144px -96px}
+.bg-fish{background-position:0 -144px}
+.bg-frog{background-position:-48px -144px}
+.bg-guest{background-position:-96px -144px}
+.bg-guitar{background-position:-144px -144px}
+.bg-horses{background-position:-192px 0}
+.bg-kick{background-position:-192px -48px}
+.bg-lift_off{background-position:-192px -96px}
+.bg-palm_tree{background-position:-192px -144px}
+.bg-pink_flower{background-position:0 -192px}
+.bg-red_flower{background-position:-48px -192px}
+.bg-skater{background-position:-96px -192px}
+.bg-snowflake{background-position:-144px -192px}

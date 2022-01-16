@@ -1,0 +1,228 @@
+@charset "UTF-8";
+
+#taskbar {
+display: flex;
+position: fixed;
+width: 100%; height: 30px;
+bottom: 0;
+background: linear-gradient(#1F2F86 0px, #3165C4 3%,#3682E5 6%, #4490E6 10%,#3883E5 12%, #2B71E0 15%, #2663DA 18%,#235BD6 20%,#2258D5 23%, #2157D6 38%, #245DDB 54%, #2562DF 86%, #245FDC 89%, #2158D4 92%, #1D4EC0 95%, #1941A5 98%) repeat scroll 0% 0%;
+z-index: 500;
+}
+  #taskbar .resizer, #quicklaunch-resizer {
+  height: 20px;
+  width: 6px;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAUCAYAAACu0kzYAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF0WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTI1VDAxOjQyOjQwKzAxOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTI1VDAxOjQyOjQwKzAxOjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0yNVQwMTo0Mjo0MCswMTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowNjVjZmU2ZC04OTY0LTRiNDktOWU4Zi0wMmExNGEzYWY3ODQiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDowM2NmNTg4Yy1lMzkxLTQxNGQtYmY4ZC0xZGZkYzIxMTU5NTIiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0NjIxOWZmOS0yYWVlLWVkNDMtYmNkMy0zMTQ1ZDEwMjRjZjQiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NjIxOWZmOS0yYWVlLWVkNDMtYmNkMy0zMTQ1ZDEwMjRjZjQiIHN0RXZ0OndoZW49IjIwMjEtMTItMjVUMDE6NDI6NDArMDE6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE5IChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MDY1Y2ZlNmQtODk2NC00YjQ5LTllOGYtMDJhMTRhM2FmNzg0IiBzdEV2dDp3aGVuPSIyMDIxLTEyLTI1VDAxOjQyOjQwKzAxOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Pr78lgAAAPVJREFUGJVt0U9LAnEQxvHvs/wQWYy0brXaduiQlqaubv/wtfZmIiLCQ72AiA4RllrRpdbpEMvu0g48x5n5DKNq98LAY7sTiVx5KzNsJd7jutnKSOOC9ljLeMOSxPINOBDr13MBPN3fGoKgE8kZ2WizCgIWUcOcvKy92etptl+3n28Ppaqtg7hc9TFeMwnSuGbvXItB7U+Vm+skaEw/BfA4vTIErf6JHPqveuvWzGHZYTvDoV72akVVcHRarloO/KIqHE702vUtSQzl9jkEm3dfAni4uTQE4ehMLm9PVbO2by6/cPc41nNYLapao0m5an5YKXzqF77nbztu42kmAAAAAElFTkSuQmCC');
+  }
+  #taskbar .resizer {
+    position: relative;
+    top:6px;
+    left: 4px;
+    margin-right: 4px;
+  }
+  #quicklaunch-resizer {
+  position: absolute;
+  top: 6px;
+  right: -7px;
+  cursor: url(../cursors/ew-resize.cur), e-resize;
+  }
+  #taskbar #taskbar-quicklaunch {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  padding-top: 2px;
+  margin-right: 7px;
+  min-width: 24px;
+  }
+    #taskbar #taskbar-quicklaunch .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid transparent;
+    flex: 0 0 auto;
+    }
+    #taskbar #taskbar-quicklaunch #grower {
+    display:none;
+    position:relative;
+    width: 19px; height: 24px;
+    border: 1px solid transparent;
+    flex: 0 0 auto;
+    }
+    #taskbar #taskbar-quicklaunch #grower::before,
+    #taskbar #taskbar-quicklaunch #grower::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 5px; height: 5px;
+      top: 4px;
+      border-right: 2px solid #7BB6E8;
+      border-bottom: 2px solid #7BB6E8;
+      transform: rotate(-45deg);
+    }
+    #taskbar #taskbar-quicklaunch #grower::before {
+      left: 6px;
+    }
+    #taskbar #taskbar-quicklaunch #grower::after  {
+      left: 2px;
+    }
+    #taskbar #taskbar-quicklaunch #grower:hover::before,
+    #taskbar #taskbar-quicklaunch #grower:hover::after {
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+    #taskbar #taskbar-quicklaunch .icon:hover,
+    #taskbar #taskbar-quicklaunch #grower:hover {
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: #2660d1;
+    border-right-color: #184da7;
+    border-bottom-color: #1b49a7;
+    border-left-color: #1d5dcb;
+    background: #3a7ee8;
+    box-shadow: 1px 1px 1px 0px #7cb3f5 inset, -1px -1px 1px 0 #2965d1 inset;
+    }
+    #taskbar #taskbar-quicklaunch .icon:active,
+    #taskbar #taskbar-quicklaunch #grower:active {
+    border-left-color: #082e84;
+    border-bottom-color: #1e50c4;
+    border-top-color: #0c3d9d;
+    border-right-color: #1042a8;
+    background: #0e49c8;
+    box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.5) inset, -1px -1px 1px 0 rgba(0,0,0,0.3) inset;
+    }
+    #taskbar #taskbar-quicklaunch .icon .icon-img {
+      width: 16px;
+      height: 16px;
+      background-size: 16px 16px;
+      background-image: var(--bg-image)
+    }
+    #taskbar #taskbar-quicklaunch .icon .icon-text {
+      display:none
+    }
+  #taskbar #taskbar-apps {
+  flex: 1 1 auto;
+  display:flex;
+  overflow: hidden;
+  padding-right: 10px;
+  }
+    #taskbar .taskbar-app {
+    display: flex;
+    flex: 1 1 0%;
+    max-width: 150px;
+    position: relative; top:0;
+    align-items: center;
+    color: #fff;
+    margin-top: 4px; margin-left: 2px; padding-left: 4px; padding-right: 4px;
+    height: 23px;
+    width: 150px;
+    font-size: 12px;
+    background-color: rgb(60, 129, 243);
+    box-shadow: rgba(0, 0, 0, 0.3) -1px 0px inset, rgba(255, 255, 255, 0.2) 1px 1px 1px inset;
+    border-top: 1px solid #306fd9;
+    border-left: 1px solid #306fd9;
+    border-bottom: 1px solid #2652bc;
+    border-right: 1px solid #2652bc;
+    border-radius: 3px;
+    -moz-box-align: center;
+    }
+    #taskbar .taskbar-app:hover {
+    background-color: #53a3ff;
+    border-top: 1px solid #2c5fb2;
+    border-left: 1px solid #306fd9;
+    border-bottom: 1px solid #1d4196;
+    border-right: 1px solid #1f408c;
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.2),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.3);
+    }
+
+    #taskbar .taskbar-app:focus {
+    background-color: #1e52b7;
+    border-top: 1px solid #1c62d2;
+    border-left: 1px solid #115be9;
+    border-bottom: 1px solid #0c3cae;
+    border-right: 1px solid #0d3a9c;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.7) 1px 0px 1px inset;
+    }
+    #taskbar .taskbar-app:focus:hover {
+    background-color: #53a3ff ;
+    }
+      #taskbar .taskbar-app > div img {
+      width: 16px;
+      margin-top: 4px;
+      margin-right: 4px;
+      }
+      #taskbar .taskbar-app  div:nth-of-type(2) { /* ??? WHAT IS THAT */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+  #taskbar #taskbar-notifications {
+  flex-shrink: 0;
+  border-left: 1px solid #0f4575;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 30px;
+  background: rgba(0, 0, 0, 0) linear-gradient(rgb(12, 89, 185) 1%, rgb(19, 158, 233) 6%, rgb(24, 181, 242) 10%, rgb(19, 155, 235) 14%, rgb(18, 144, 232) 19%, rgb(13, 141, 234) 63%, rgb(13, 159, 241) 81%, rgb(15, 158, 237) 88%, rgb(17, 155, 233) 91%, rgb(19, 146, 226) 94%, rgb(19, 126, 215) 97%, rgb(9, 91, 201) 100%) repeat scroll 0% 0%;
+  border-left: 1px solid rgb(16, 66, 175);
+  box-shadow: rgb(24, 187, 255) 1px 0px 1px inset;
+  padding: 0px 10px 0 15px;
+  }
+    #taskbar #taskbar-notifications #taskbar-arrow {
+    display: flex;
+    position: absolute;
+    top: 6px;
+    left: -10px;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(120deg, #90d7f9, #0b8ef0, #0671eb);
+    margin: 0 auto;
+    width: 19px; height: 19px;
+    border-radius: 100%;
+    box-shadow:
+    1px 1px 0px 0px #bbb,
+    -1px -1px 0px 0px #000;
+    }
+    #taskbar #taskbar-notifications #taskbar-arrow:hover {
+    background-image: linear-gradient(60deg, #90d7f9, #0b8ef0, #0671eb);
+    box-shadow:
+    1px 1px 0px 0px #bbb,
+    -1px -1px 0px 0px #000,
+    1px 0 3px 0px rgba(0,0,0,0.5) inset;
+    }
+      #taskbar  #taskbar-notifications #taskbar-arrow::before {
+      content:"";
+      display: inline-block;
+      width: 6px; height: 9px;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAJCAYAAAARml2dAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF0WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTEyLTI0VDE0OjUwOjQyKzAxOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTEyLTI0VDE0OjUwOjQyKzAxOjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0xMi0yNFQxNDo1MDo0MiswMTowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpiOWU1OTE0NC1mMTdhLTk2NDktYWJhNC1lYTIwY2FkNzg1OTYiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDpiMDJhOWI5ZS1hYzZiLWQwNGItODgzYi02YWIzNDVhNThkMjkiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0N2U3N2QwYS1lODE1LThiNDktYWNhYS1hZTY0ZTIwMzVhNmQiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo0N2U3N2QwYS1lODE1LThiNDktYWNhYS1hZTY0ZTIwMzVhNmQiIHN0RXZ0OndoZW49IjIwMjEtMTItMjRUMTQ6NTA6NDIrMDE6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE5IChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6YjllNTkxNDQtZjE3YS05NjQ5LWFiYTQtZWEyMGNhZDc4NTk2IiBzdEV2dDp3aGVuPSIyMDIxLTEyLTI0VDE0OjUwOjQyKzAxOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+xWD3NQAAAJ5JREFUCJlVyb0OwWAUgOH3nAqakgiL3R25BaPZJPEz2Lq4AIm7MbsGDU2kTZtGpeHrMalYn0c254qkMqKi5pY5TtOejQ+FaP4y4scPAeJZ3zQqai7pDwF6+1z0mv9jEGYiLRAza9Bfp+INPNQXdHIs5BvP7dCsdFhZo1ltBGHW5GM5NJc49C2gbcFfpU2Wu5EpDvBAO4K/SASgO7/LB9X8ThtbxsxfAAAAAElFTkSuQmCC')
+      }
+    #taskbar #taskbar-notifications input[type="checkbox"] {
+    position:absolute;
+    opacity:0;
+    pointer-events: none;
+    }
+    #taskbar #taskbar-notifications input[type="checkbox"]:checked + #taskbar-arrow::before {
+    transform: rotate(180deg);
+    }
+    #taskbar-notifications .hideable {
+    display: none;
+    }
+    #taskbar #taskbar-notifications input[type="checkbox"]:checked ~ .hideable {
+    display: block;
+    }
+    #taskbar #taskbar-notifications abbr {
+      color: #fff;
+      font-size: .9rem;
+      text-decoration: none;
+      margin: 2px 2px 0px 2px ;
+    }
+    #taskbar #taskbar-notifications abbr.hide {
+      display: none;
+    }
+      #taskbar #taskbar-notifications img {
+        margin-top: 4px
+      }

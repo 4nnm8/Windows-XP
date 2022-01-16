@@ -1,27 +1,43 @@
 @charset "UTF-8";
 
-
+/* FOR TOOTIPS
+https://rimdev.io/css-only-tooltip-for-all-screen-sizes/
+https://codepen.io/pure-css/pen/bddggP
+*/
+* {
+  cursor: url('../cursors/default.cur'), default;
+}
 .icon-slot {
   width: 100px;
   height: 80px;
-  margin-top: 5px
+  margin-top: 5px;
+  pointer-events: none;
 }
-.icon {
-  display: block;
-  text-align: center;
+.workspace .icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
   font-size: .9rem;
   z-index: 1;
+  pointer-events: auto;
+  cursor: url('../cursors/default.cur'), default;
 }
-.icon.cut {
+.workspace .icon.cut {
   opacity:.6
 }
-.icon.shortcut > div {
+.workspace .icon.shortcut > div {
   position: relative;
 }
-.icon.shortcut > .icon-img::after {
+.workspace .icon-img {
+  width: 32px;
+  height: 32px;
+  background-image: var(--bg-image);
+  margin-bottom: 3px
+}
+.workspace .icon.shortcut >  .icon-img::after {
   content: "";
   position: absolute;
   width: 11px; height: 11px;
@@ -33,26 +49,27 @@
   border-left-color: #808080;
   right: calc(50% + 5px); bottom: 0;
   background: #fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAHAQMAAAD6aRWtAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAZQTFRFAAAAAAAApWe5zwAAAAJ0Uk5TAP9bkSK1AAAAFklEQVR4nGOoYLBgqGB4wXCAoYHBAQAYngOR+2H1KQAAAABJRU5ErkJggg==') center no-repeat;
-
 }
-.icon:focus, .icon:active {
+.workspace .icon:focus, .workspace .icon:active {
   outline: none;
 }
 
-.icon.focusedicon img {
+.workspace .icon.focusedicon .icon-img {
    filter: sepia(100%) brightness(35%) hue-rotate(166deg) saturate(600%) contrast(66%);
 }
-.icon .icon-text {
+.workspace .icon .icon-text {
   padding: 0 2px;
   border: 1px solid transparent;
+  text-align: center;
   display: inline-block;
   position: relative;
   width: 100px;
-  line-height: .9rem;
-  font-size: .9rem;
+  line-height: 13px;
   max-height: 2.8rem;
   overflow: hidden;
   white-space: break-word;
+  font-family: Tahoma;
+  font-size: 13px
 
 }
 @supports (-webkit-line-clamp: 2) {
@@ -73,19 +90,19 @@
   height: 1rem;
 }*/
 
-.icon .icon-text::selection, .icon .icon-text::-moz-selection {
+.workspace .icon .icon-text::selection, .workspace .icon .icon-text::-moz-selection {
   color: #fff;
   background: #09275f;
 }
 
-.icon.focusedicon  .icon-text {
+.workspace .icon.focusedicon  .icon-text {
   background: rgba(52,92,165,0.7);
   text-shadow: none
 }
-.icon.focusedicon:focus  .icon-text {
+.workspace .icon.focusedicon:focus  .icon-text {
   outline: 1px dotted #efefef;
 }
-.icon.renaming > .icon-text {
+.workspace .icon.renaming > .icon-text {
   background-color: #fff;
   outline: 1px solid #000;
   color : #000;
@@ -175,4 +192,90 @@
 .temp-context-menu ul li {
   display: flex;
   align-items: center;
+}
+
+
+/** BALLOON **/
+
+.balloon {
+  position: relative;
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 6px 28px 10px 10px;
+  background-color: #ffffe1;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.balloon::before,
+.balloon::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0; height: 0;
+  border-style: solid;
+}
+
+.balloon.bottom-right::after {
+  bottom: -17px; right: 15px;
+  border-width: 0 18px 18px 0;
+  border-color: transparent #ffffe1 transparent transparent;
+}
+
+.balloon.bottom-right::before {
+  bottom: -19px; right: 14px;
+  border-width: 0 19px 19px 0;
+  border-color: transparent black transparent transparent;
+}
+
+.balloon.bottom-left::after {
+  bottom: -17px; left: 15px;
+  border-width: 0 0 18px 18px;
+  border-color: transparent transparent transparent #ffffe1;
+}
+
+.balloon.bottom-left::before {
+  bottom: -19px; left: 14px;
+  border-width: 0 0 19px 19px;
+  border-color: transparent transparent transparent black;
+}
+
+.balloon.top-left::after {
+  top: -17px; left: 15px;
+  border-width: 18px 0 0 18px;
+  border-color: transparent transparent transparent #ffffe1;
+}
+
+.balloon.top-left::before {
+  top: -19px; left: 14px;
+  border-width: 19px 0 0 19px;
+  border-color: transparent transparent transparent black;
+}
+
+.balloon.top-right::after {
+  top: -17px; right: 15px;
+  border-width: 18px 18px 0 0;
+  border-color: transparent #ffffe1 transparent transparent;
+}
+
+.balloon.top-right::before {
+  top: -19px; right: 14px;
+  border-width: 19px 19px 0 0;
+  border-color: transparent black transparent transparent;
+}
+.tooltip {
+  opacity:0;
+  position: absolute;
+  pointer-events: none;
+  background: #ffffe1;
+  color: #000;
+  border: 1px solid #000 !important;
+  display: block;
+  max-width: 300px;
+  padding: 3px;
+  box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.6);
+  transition: opacity .1s ease 1s;
+  z-index: 999999;
 }
