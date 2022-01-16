@@ -5,39 +5,62 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../../css/basic-window.css" />
+  <link rel="stylesheet" href="../../css/window-content.css" />
   <link rel="stylesheet" href="calc.css" />
   <title>calc.exe</title>
 </head>
 
 <body>
-  <section class="com__toolbar">
-    <div class="com__options">
-      <div class="sc-bwzfXH bvzUWv">
-        <div class="drop-down">
-          <div class="drop-down__label ">
-            &Eacute;dition</div>
-        </div>
-        <div class="drop-down">
-          <div class="drop-down__label ">
-            Affichage</div>
-        </div>
-        <div class="drop-down">
-          <div class="drop-down__label ">
-            Aide</div>
-        </div>
-      </div>
-    </div>
+  <header class="window-toolbars">
+  <section class="toolbar_menu">
+    <ul class="wt-options">
+        <li class="wt-dropdown">
+          <div class="wt-label">&Eacute;dition</div>
+          <ul>
+            <li>
+              <div class="wt-label">Copier</div>
+              <div class="wt-key">Ctrl+C</div>
+            </li>
+            <li>
+              <div class="wt-label">Coller</div>
+              <div class="wt-key">Ctrl+V</div>
+            </li>
+          </ul>
+        </li>
+        <li class="wt-dropdown">
+          <div class="wt-label">Affichage</div>
+          <ul>
+            <li>
+              <div class="wt-label wt-radio">Standard</div>
+            </li>
+            <li>
+              <div class="wt-label">Scientifique</div>
+            </li>
+            <hr/>
+            <li>
+              <div class="wt-label wt-checked">Groupement des chiffres</div>
+            </li>
+          </ul>
+        </li>
+        <li class="wt-dropdown">
+          <div class="wt-label ">?</div>
+          <ul>
+            <li><div class="wt-label">Rubrique d'aide</div></li>
+            <li><div class="wt-label">À propos de la Calculatrice</div></li>
+          </ul>
+        </li>
+    </ul>
   </section>
-
+</header>
   <section class="window-content">
-    <input type="text" placeholder="0." id="calc-screen" pattern="[0-9+e.-]" disabled /><br />
+    <input type="text" placeholder="0." id="calc-screen" disabled readonly />
+    <input type="text" placeholder="0." id="calc-fakescreen" disabled readonly /><br />
     <input type="text" disabled id="calc-control" />
-    <button class="big red" id="backspace">Backspace</button> <button class="big red" id="CE">CE</button> <button class="big red" id="C">C</button><br />
-    <button class="red left" id="calc-mc">MC</button> <button class="nb">7</button> <button class="nb">8</button> <button class="nb">9</button> <button class="red" id="divide">/</button> <button id="sqrt">sqrt</button><br />
+    <button class="big red" id="backspace">Retour arrière</button> <button class="red" id="CE">CE</button> <button class="red" id="C">C</button><br />
+    <button class="red left" id="calc-mc">MC</button> <button class="nb">7</button> <button class="nb">8</button> <button class="nb">9</button> <button class="red" id="divide">/</button> <button id="sqrt">Rac</button><br />
     <button class="red left" id="calc-mr">MR</button> <button class="nb">4</button> <button class="nb">5</button> <button class="nb">6</button> <button class="red" id="times">*</button> <button id="percent">%</button><br />
     <button class="red left" id="calc-ms">MS</button> <button class="nb">1</button> <button class="nb">2</button> <button class="nb">3</button> <button class="red" id="minus">-</button> <button id="oneover">1/x</button><br />
-    <button class="red left" id="calc-mp">M+</button> <button class="nb">0</button> <button id="invert">+/-</button> <button id="dot">.</button> <button class="red" id="plus">+</button> <button id="equal">=</button>
+    <button class="red left" id="calc-mp">M+</button> <button class="nb">0</button> <button id="invert">+/-</button> <button id="dot">.</button> <button class="red" id="plus">+</button> <button class="red" id="equal">=</button>
   </section>
   <script src="calc.js"></script>
 </body>

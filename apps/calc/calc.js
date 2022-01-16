@@ -3,7 +3,10 @@ var storage,
   result = false,
   lastop,
   old,
-  memory;
+  memory,
+  group_numbers= true;
+
+
 
 function showVariables() {
   console.log(
@@ -21,6 +24,12 @@ const
     return document.getElementById(a)
   },
   screen = $id('calc-screen'),
+  fakescreen = $id('calc-fakescreen'),
+  addThousands = (v) => {
+    let n = Number(v);
+    n > 10000000000000000 && (n = n.toExponential());
+    return n.toLocaleString('fr-FR', {minimumFractionDigits: 0, maximumFractionDigits:20});
+  },
   clearScreen = () => {
     screen.value = '';
     screen.placeholder = '0.';
@@ -51,12 +60,12 @@ fnNumber = (n) => {
 
   },
   fnMC = () => {
-    //OK // MC = Memory Clear sets the memory to 0 
+    //OK // MC = Memory Clear sets the memory to 0
     memory = void 0;
     $id('calc-control').value = '';
   },
   fnMS = () => {
-    // MS = Memory Store puts the number on the display into the memory 
+    // MS = Memory Store puts the number on the display into the memory
     screen.value !== '' && (memory = screen.value, $id('calc-control').value = 'M')
   },
   fnMP = () => {
@@ -174,7 +183,17 @@ $id('dot').addEventListener('click', fnDot);
 
 
 
-document.addEventListener('click', showVariables)
+document.addEventListener('click', function(e) {
+  if (group_numbers && e.target.tagName == 'BUTTON') {
+    screen.style.display = 'none'
+    fakescreen.style.display = 'inline'
+    fakescreen.value = addThousands(screen.value);
+  }
+
+  showVariables()
+})
+
+
 document.addEventListener('keydown', function(e) {
   //console.log(e.code)
   switch (e.code) {
