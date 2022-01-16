@@ -1,8 +1,4 @@
-/*function resizeWindowToFitContent(appId) {
-  let a = $id(appId), b = a.querySelector('iframe');
-  a.style.width = b.contentWindow.document.body.offsetWidth + 8 + "px";
-  a.style.height =  b.contentWindow.document.body.offsetHeight + 34 + "px";
-}*/
+
 var copiedIcons = [],
     isCutFile = false,
     currentZIndex = 10;
@@ -16,28 +12,33 @@ getURLParameter = (p,q) => {
   return new URLSearchParams(window.location.search).get(p);
 },
 clock = () => {
-  let d = new Date(),
-      t = $id('time');
-      hm = d.toLocaleTimeString('fr-FR', {hour: '2-digit',minute: '2-digit'}),
-      ymd = d.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-  t.innerHTML = hm;
-  t.setAttribute('title', $id('time'));
+  setInterval(() => {
+    let d = new Date(),
+        t = $id('time');
+        hm = d.toLocaleTimeString('fr-FR', {hour: '2-digit',minute: '2-digit'}),
+        ymd = d.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    t.innerHTML = hm;
+    t.setAttribute('title', ymd);
+  }, 1000);
+},
+resizeWindowToFitContent = (appId) => {
+  let a = $id(appId), b = a.querySelector('iframe');
+  a.style.width = b.contentWindow.document.body.offsetWidth + 8 + "px";
+  a.style.height =  b.contentWindow.document.body.offsetHeight + 34 + "px";
 },
 makeItFocused = (a) => {
   document.querySelectorAll('.window').forEach(function(b) {
-    b.classList.add('inactive');
+    b !== a && b.classList.add('inactive');
   });
-  if (a) {
-  	a.classList.remove('inactive');
-    a.style.zIndex = '' + ++currentZIndex;
-  	a.querySelector('iframe') && a.querySelector('iframe').focus();
-  }
+  a && (
+    a.classList.remove('inactive'),
+    a.style.zIndex = '' + ++currentZIndex,
+  	a.querySelector('iframe') && a.querySelector('iframe').focus()
+  );
 },
 openWindow = (el) => {
-  var appId = el.getAttribute('data-app'),
-      appClassList = el.classList;
-
-  if (appClassList.contains('opened')) {
+  var appId = el.getAttribute('data-app');
+  if (el.classList.contains('opened')) {
     $id(appId).classList.remove('hide')
     makeItFocused($id(appId));
     return false;
@@ -140,10 +141,6 @@ openWindow = (el) => {
         $id(appId).classList.add('hide');
       }
     }
-
-
-
-
   },!1);
 
   let iframe = document.createElement('iframe');
@@ -153,7 +150,7 @@ openWindow = (el) => {
   iframe.addEventListener('load', function() {
     //resizeWindowToFitContent(appId);
     initDragWindow(n_window);
-    if (!appClassList.contains('unresizable')) initResizeWindow(n_window);
+    if (!el.classList.contains('unresizable')) initResizeWindow(n_window);
     n_window.style.display = '';
     document.body.style.cursor = '';
     $id('taskbar-apps').appendChild(taskbar_item);
@@ -162,10 +159,8 @@ openWindow = (el) => {
   });
 },
 maximize = (a) => {
-  //if (!a.classList.contains('unresizable')) { // handled with CSS
-    a.classList.add('maximize');
-    a.querySelector('[aria-label=Maximize]').setAttribute('aria-label', 'Restore')
-  //}
+  a.classList.add('maximize');
+  a.querySelector('[aria-label=Maximize]').setAttribute('aria-label', 'Restore')
 },
 restore = (a) => {
   a.classList.remove('maximize');
@@ -309,15 +304,14 @@ throwAlert = (title, content, icon, fallbackyes, fallbackno) => {
         case 'but_yes' : case 'but_ok' : fallbackyes(); r(); break;
       }
     });
+    playAudio('error')
  };
 
 
 document.addEventListener('click', function(e) {
 
   parent('#start-button',e) ? $id('start-menu').classList.toggle('show') : $id('start-menu').classList.remove('show');
-  parent('#taskbar-arrow',e) && $id('taskbar-notifications').classList.toggle('reverse');
   parent('#quick-desktop',e) && document.querySelectorAll('.window').forEach(function(a){a.classList.add('hide')})
-
   !parent('.window',e) && !parent('.taskbar-app',e) && makeItFocused(); /* check if reccurences */
 });
 
@@ -331,19 +325,19 @@ window.addEventListener('message',function(e){
       subject = data.subject, // le sujet de l'action
       origin = e.source; // source de la demande pour renvoi de réponse
   if (action == 'throwAlert') {
-    if (subject == 'definitivedeletion') {
+    if (subject == 'erase') {
       throwAlert(
         data.title,
         data.message,
         data.icon,
         function() {
           postMessage(origin,{
-            action: 'definitivedeletion_accepted'
+            action: 'erase_accepted'
           });
           origin.focus()
         },function() {
           postMessage(origin,{
-            action: 'definitivedeletion_denied'
+            action: 'erase'
           });
           origin.focus()
         }
@@ -389,10 +383,42 @@ window.addEventListener('message',function(e){
 },false);
 
 
+
+var quickLauchDrag,
+    quicklaunch = $id('taskbar-quicklaunch')
+    qLstartX = 0;
+
+$id('quicklaunch-resizer').addEventListener('mousedown', function (e) {
+   quickLauchDrag = true;
+   qLstartX = e.clientX;
+ });
+
+ document.addEventListener('mousemove', function (e) {
+   if (!quickLauchDrag) return;
+   var qLleft = quicklaunch.getBoundingClientRect().x
+   var width = e.clientX - qLleft + 'px';
+   quicklaunch.style.width = width;
+ });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function(){
   $id('start-menu-header').querySelector('span').innerHTML = getURLParameter('username') || 'Invité&middot;e';
   $id('start-menu-header').querySelector('div').classList.add(getURLParameter('userpic') || 'bg-guest');
-  setInterval(clock, 1000);
+  clock();
 })
 window.addEventListener('load', function() {
   playAudio('startup');
