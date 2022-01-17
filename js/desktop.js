@@ -5,20 +5,17 @@ var copiedIcons = [],
 
 const
 htmlRoot = document.documentElement,
+taskbar_time = $id('time'),
 parent = (p,e) => {
   return e.target.closest(p)
-},
-getURLParameter = (p,q) => {
-  return new URLSearchParams(window.location.search).get(p);
 },
 clock = () => {
   setInterval(() => {
     let d = new Date(),
-        t = $id('time');
         hm = d.toLocaleTimeString('fr-FR', {hour: '2-digit',minute: '2-digit'}),
         ymd = d.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-    t.innerHTML = hm;
-    t.setAttribute('title', ymd);
+    taskbar_time.innerHTML = hm;
+    taskbar_time.setAttribute('title', ymd);
   }, 1000);
 },
 resizeWindowToFitContent = (appId) => {
@@ -38,6 +35,7 @@ makeItFocused = (a) => {
 },
 openWindow = (el) => {
   var appId = el.getAttribute('data-app');
+
   if (el.classList.contains('opened')) {
     $id(appId).classList.remove('hide')
     makeItFocused($id(appId));
@@ -45,117 +43,122 @@ openWindow = (el) => {
   } else {
     el.classList.add('opened');
   }
+
   document.body.style.cursor = 'url(cursors/wait.cur), wait';
+
   var appName = el.getAttribute('data-appname'),
       appUrl = el.getAttribute('data-url') || `apps/${appId}/index.html`,
-      appImg = file_img[appId+'_16'],
+      options = el.getAttribute('data-options');
+  if (options) {
+    options = options.replace(/([a-z]+):([a-z0-9]+)(;)?/gi,"$1:$2$3");
+    //options = JSON.parse('{'+options+'}')
+  } else {
+    options = {
+      width: '70vw',
+      height: '50vh',
+      resizable: true
+    }
+  }
 
-
-       // A MODIFIER !!!!!!!!!!!!
-       appOptions = el.getAttribute('data-options') || false,
-       default_option = {
-       	 width: '70vw',
-       	 height: '50vh',
-       	 top: '25vh',
-       	 left: '15vw',
-       	 resizable: 'true'
-       },
-       options;
-
-       if (appOptions) {
-       	 let regex = '{'+appOptions.replace(/([a-z]+):([a-z0-9]+)(,)?/gi,'"$1":"$2"$3')+'}'
-         options = JSON.parse(regex)
-       } else {
-       	options = default_option
-       }
-      // A MODIFIER !!!!!!!!!!!!
-
-  let n_window = document.createElement('div');
-  n_window.setAttribute('class','window');
-  n_window.setAttribute('id',appId);
-  "false" == options.resizable && n_window.classList.add('unresizable');
-  Object.assign(n_window.style, {
-    display: 'none',
-    zIndex: currentZIndex + 1,
-    width: options.width,
-    height: options.height,
-    top: options.top,
-    left: options.left
+  var n_window = generateElement({
+    tag: 'div',
+    attribs: {
+      class: 'window' + (options.resizable ? '' : ' unresizable'),
+      id: appId
+    },
+    style : 'display:none;width:'+options.width+';height:'+options.height+';z-index:'+ ++currentZIndex,
+    events : {
+      'mousedown': makeItFocused(n_window)
+    }
   });
-  n_window.addEventListener('mousedown', function(){
-    makeItFocused(n_window);
-  })
 
-  let n_titlebar = document.createElement('div');
-  n_titlebar.className = 'title-bar';
-  n_titlebar.addEventListener('dblclick', function(e) {
-    let p = this.closest('.window');
-    if (!p.classList.contains('unresizable')) {
-      if (p.classList.contains('maximize')) {
-        restore(p)
-      } else {
-        maximize(p)
+  var n_titlebar = generateElement({
+    tag : 'div',
+    attribs : {
+      'class': 'title-bar'
+    },
+    events : {
+      'dblclick' : (e) => {
+        let p = n_titlebar.closest('.window');
+        if (!p.classList.contains('unresizable')) {
+          if (p.classList.contains('maximize')) {
+            restore(p)
+          } else {
+            maximize(p)
+          }
+        }
+      },
+      'click' : (e) => {
+        let p = n_titlebar.closest('.window'),
+            q = e.target.getAttribute('aria-label');
+        switch (q) {
+          case "Maximize" : maximize(p); break;
+          case "Minimize" : minimize(p); break;
+          case "Restore" : restore(p); break;
+          case "Close" : close(p); break;
+        }
+      }
+    },
+    content: `<div class="title-bar-text"><div class="x16 app-${appId}"></div> ${appName}</div>\
+              <div class="title-bar-controls">\
+              <button aria-label="Minimize"></button>\
+              <button aria-label="Maximize"></button>\
+              <button aria-label="Close"></button>\
+              </div>`,
+    appendIn : n_window
+  });
+
+  var taskbar_item = generateElement({
+    tag : 'div',
+    attribs : {
+      'class':'taskbar-app',
+      'data-app' : appId,
+      'tabindex': '0'
+    },
+    content : `<div class="x16 app-${appId}"></div><div>${appName}</div>`,
+    events : {
+      'click' : (e) => {
+        if (e.button === 2) {
+          taskbarItemContextMenu(e,this);
+        } else if (e.button === 0) {
+          if ($id(appId).classList.contains('hide')) {
+            playAudio('restore');
+            $id(appId).style.zIndex = '' + ++currentZIndex;
+            $id(appId).classList.remove('hide');
+            $id(appId).classList.remove('inactive');
+            $id(appId).querySelector('iframe').focus();
+            makeItFocused(n_window);
+          } else if ($id(appId).classList.contains('inactive')) {
+            makeItFocused($id(appId));
+          } else {
+            playAudio('minimize')
+            $id(appId).classList.add('hide');
+          }
+        }
       }
     }
   });
-  n_titlebar.addEventListener('click', function(e) {
-    let p = this.closest('.window'),
-        q = e.target.getAttribute('aria-label');
-    switch (q) {
-      case "Maximize" : maximize(p); break;
-      case "Minimize" : minimize(p); break;
-      case "Restore" : restore(p); break;
-      case "Close" : close(p); break;
-    }
-  });
-  n_titlebar.innerHTML = `<div class="title-bar-text"><img src="${appImg}" title="${appName}" /> ${appName}</div>\
-    <div class="title-bar-controls">\
-      <button aria-label="Minimize"></button>\
-      <button aria-label="Maximize"></button>\
-      <button aria-label="Close"></button>\
-  </div>`
 
-  n_window.appendChild(n_titlebar);
-
-  let taskbar_item = document.createElement('div');
-  taskbar_item.setAttribute('class', 'taskbar-app');
-  taskbar_item.setAttribute('data-app', appId);
-  taskbar_item.setAttribute('tabindex', '0');
-  taskbar_item.innerHTML = `<div><img src="${appImg}" alt="${appName}" /></div><div>${appName}</div>`;
-  taskbar_item.addEventListener('click', function(e){
-
-    if (e.button === 2) {
-      taskbarItemContextMenu(e,this);
-    } else if (e.button === 0) {
-      if ($id(appId).classList.contains('hide')) {
-        playAudio('restore');
-        $id(appId).style.zIndex = '' + ++currentZIndex;
-        $id(appId).classList.remove('hide');
-        $id(appId).classList.remove('inactive');
-        $id(appId).querySelector('iframe').focus();
-        makeItFocused(n_window);
-      } else if ($id(appId).classList.contains('inactive')) {
-        makeItFocused($id(appId));
-      } else {
-        playAudio('minimize')
-        $id(appId).classList.add('hide');
-      }
-    }
-  },!1);
-
-  let iframe = document.createElement('iframe');
-  iframe.src = appUrl;
-  n_window.appendChild(iframe);
   $id('desktop-area').appendChild(n_window);
-  iframe.addEventListener('load', function() {
-    //resizeWindowToFitContent(appId);
-    initDragWindow(n_window);
-    if (!el.classList.contains('unresizable')) initResizeWindow(n_window);
-    n_window.style.display = '';
-    document.body.style.cursor = '';
-    $id('taskbar-apps').appendChild(taskbar_item);
-    makeItFocused(n_window);
-    $id(appId).querySelector('iframe').focus();
+
+  var iframe = generateElement({
+    tag : 'iframe',
+    attribs : {
+      'src' : appUrl
+    },
+    appendIn: n_window,
+    events : {
+      'load' : () => {
+        //resizeWindowToFitContent(appId);
+        initDragWindow(n_window);
+        if (!el.classList.contains('unresizable')) initResizeWindow(n_window);
+        n_window.style.display = '';
+        document.body.style.cursor = '';
+        $id('taskbar-apps').appendChild(taskbar_item);
+        makeItFocused(n_window);
+        iframe.focus();
+      }
+    }
   });
 },
 maximize = (a) => {
@@ -309,15 +312,17 @@ throwAlert = (title, content, icon, fallbackyes, fallbackno) => {
 
 
 document.addEventListener('click', function(e) {
-
+  parent('#show-volume-control',e) ? $id('volume-control').classList.toggle('show') : !parent('#volume-control',e) && $id('volume-control').classList.remove('show');
   parent('#start-button',e) ? $id('start-menu').classList.toggle('show') : $id('start-menu').classList.remove('show');
   parent('#quick-desktop',e) && document.querySelectorAll('.window').forEach(function(a){a.classList.add('hide')})
   !parent('.window',e) && !parent('.taskbar-app',e) && makeItFocused(); /* check if reccurences */
+  e.target.id === "volume-mute" && voiceMute();
+  e.target.id === "taskbar_time" && openWindow(e.target.id);
+  parent('#grower',e) ? $id('grower-context').classList.toggle('show') : !parent('#grower-context',e) && $id('grower-context').classList.remove('show');
 });
 
 
-/*** DESKTOP A BESOIN DE DECLENCHER LES ALERTES RECUES
-& DISPATCHER AUX NOUVELLES FENETRES OUVERTES ET AUX EXISTANTES LES FICHIERS COPIES ***/
+/*** POST MESSAGES ***/
 
 window.addEventListener('message',function(e){
   let data = JSON.parse(e.data), // données reçues reconverties en code
@@ -382,42 +387,89 @@ window.addEventListener('message',function(e){
   }
 },false);
 
+/**** VOLUME ***/
+const mute = $id('volume-mute'),
+      volume_slider = $id('volume-slider'),
+      volume_ico = $id('show-volume-control');
 
+var gainNode = audioManager.createGain(),
+    volume_level = 0.5;
 
-var quickLauchDrag,
-    quicklaunch = $id('taskbar-quicklaunch')
-    qLstartX = 0;
+function voiceMute() {
+  if(mute.checked === true) {
+    gainNode.gain.value = 0;
+    volume_ico.title = 'Volume (muet)';
+    volume_ico.classList.remove('speaker');
+    volume_ico.classList.add('speaker-mute');
+  } else {
+    gainNode.gain.value = volume_level;
+    volume_ico.title = 'Volume';
+    volume_ico.classList.remove('speaker-mute')
+    volume_ico.classList.add('speaker')
+  }
+}
+volume_slider.addEventListener('input',function(){
+  volume_level = this.value;
+  !mute.checked && (gainNode.gain.value = volume_level);
+});
+volume_slider.addEventListener('change',function() {
+  playAudio('ding');
+})
 
+/** RESIZE TASKBAR QUICKLAUNCH CONTAINER **/
+var qL = $id('taskbar-quicklaunch'), qlDrag, qlLeft, qlIcoL, qlIcos, qlWidth;
+
+const
+recalcDropable = (doIdrop) => {
+  if (doIdrop == $id('taskbar-quicklaunch')) {
+    qlIcos = qL.querySelectorAll('.icon');
+    qlIcosL = qlIcos.length;
+    $id('taskbar-quicklaunch').style.minWidth = Math.min(72,qlIcosL*24) +'px';
+  }
+  reCalcQLWidth();
+},
+reCalcQLWidth = () => {
+  if (qlWidth/24 < qlIcoL) {
+    $id('grower').style.display = 'inline-flex';
+  } else {
+    $id('grower').style.display = 'none'
+  }
+};
 $id('quicklaunch-resizer').addEventListener('mousedown', function (e) {
-   quickLauchDrag = true;
-   qLstartX = e.clientX;
- });
+   qlDrag = true;
+   qlLeft = qL.getBoundingClientRect().x + 4,
+   qlIcoL = qL.querySelectorAll('.icon').length;
+});
+$id('taskbar').addEventListener('mousemove', function (e) {
+ if (qlDrag) {
+   qlWidth = e.clientX - qlLeft;
+   qL.style.width = qlWidth + 'px';
+   reCalcQLWidth();
+  }
+});
+document.addEventListener('mouseup', function(e) {
+  if (qlDrag) {
+    $id('grower-context').innerHTML = '';
+    let b = Math.ceil(-(qlWidth/24 - qlIcoL));
+    if (b >= 1) {
+      let c = $id('taskbar-quicklaunch').getElementsByClassName('icon'),
+          d = c.length;
+      for (let i = d-b ; i < d ; i++) {
+        let cl = c[i].cloneNode(true);
+        $id('grower-context').appendChild(cl);
+      }
+    }
+  }
+  qlDrag = false;
+});
 
- document.addEventListener('mousemove', function (e) {
-   if (!quickLauchDrag) return;
-   var qLleft = quicklaunch.getBoundingClientRect().x
-   var width = e.clientX - qLleft + 'px';
-   quicklaunch.style.width = width;
- });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**** EVENTS ON START ****/
+const getURLParameter = (p,q) => {
+  return new URLSearchParams(window.location.search).get(p);
+};
 document.addEventListener('DOMContentLoaded', function(){
-  $id('start-menu-header').querySelector('span').innerHTML = getURLParameter('username') || 'Invité&middot;e';
-  $id('start-menu-header').querySelector('div').classList.add(getURLParameter('userpic') || 'bg-guest');
+  $id('start-menu-header').querySelector('span').innerHTML = getURLParameter('username') || 'Invité';
+  $id('start-menu-header').querySelector('div').classList.add(getURLParameter('userpic') || 'upic-guest');
   clock();
 })
 window.addEventListener('load', function() {

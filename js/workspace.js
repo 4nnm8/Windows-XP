@@ -77,7 +77,7 @@ const
   $id = (a) => {
     return document.getElementById(a)
   },
-  audioManager = new window.AudioContext(),
+  audioManager = new (window.AudioContext || window.webkitAudioContext)(),
   generateElement = (p) => {
     let n = document.createElement(p.tag);
     p.attribs && Object.entries(p.attribs).forEach((a) => {
@@ -107,13 +107,6 @@ const
     msg = JSON.stringify(msg)
     to.postMessage(msg, "*")
   },
-  recalcDropable = (doIdrop) => {
-    if (doIdrop == $id('taskbar-quicklaunch')) {
-      let elems = $id('taskbar-quicklaunch').querySelectorAll('.icon')
-      $id('taskbar-quicklaunch').style.minWidth = Math.min(72,elems.length*24) +'px'
-
-    }
-  }
   /*
   getTopZIndex = function () {
     var allDivs = document.querySelectorAll('.window');
@@ -132,7 +125,7 @@ const
     let url = 'sounds/' + a + '.ogg',
       request = new XMLHttpRequest(),
       source = audioManager.createBufferSource();
-    source.connect(audioManager.destination);
+    source.connect(gainNode).connect(audioManager.destination);
     request.open('GET', url, true);
     request.responseType = 'arraybuffer';
     request.onload = function() {
@@ -148,57 +141,58 @@ const
   },
 
   workspaceContextMenu = (eloc) => {
-    let topaste = (typeof copiedIcons === 'undefined') ? window.parent.copiedIcons : copiedIcons,
-      letsPaste = (topaste.length >> 0) ? '<li id="contxt-paste">Coller</li>' : '',
-
-      context = generateElement({
-        tag: 'ul',
-        attribs: {
-          'class': 'temp-context-menu',
-          'id': 'temp-context-menu',
-        },
-        content: `<li id="contxt-reorganize">Réorganiser les icones</li>
-                  ${letsPaste}
-                  <hr/>
-                  <li class="context-parent">Nouveau
-                  <ul>
-                    <li id="contxt-newfolder"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABa0lEQVR4nKWSPUsDQRCGn3MPDrWxUgKCGLCwESEgamlhJ1iYvyAIWljYCX6VFgELIWJpqQiCFhYWFoKQSkvBdGr6JHfJZXYs7vJhEhLFgWF3YeeZd4YX/hlOn7f+GpDLplRVsdZirWVh8yUJFIByXxlx8Y94zEwrMA8MxY3aM1KQy6Y0tZ4Dztqw6zwcTyEiiEhDmYiwelRIAl+A76oqBCcg0gbIsLTz1qH2encUY8yaiFwBeef5dFbn0mkIQ54uL7uOGIYhtVqtkarRblf2P5KutRZKJZ5ubljceu27Lz4PILHHxfYwxpi1CFAs4nlelz10RiWfx0ucIdHIE66IQBA0ZBEEPQG+7+MB1loAx40vVKvV6Eex2Bcw0gTgxlKagFKpJ6BcjnwVAQaagEql8msFQH1kdYDJ28Px97pJ6mergVqNZK1FVdk4H7hzHOfZIbLqjDFmGRjr2f5nFETkvu7pobh48A8AHyh8A7Ih5wdbGTd7AAAAAElFTkSuQmCC" /> Dossier</li>
-                    <li id="contxt-newfile-text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAA7VBMVEUAAACUYwCMXQCFWACOXwBqRwAAAAAAAAD39/evhieUbxmOdloAAAAAAACens8AAAAAAAAAAAC/xsW2u7uRlZRqbGwAAAAAAAAAAACboLF3f39PVFQXGRkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUv0qQajCEbWydglx3d8G8qpGNeG65ttOpkG6+tLp3d8DExuKGaEHp9PLs9vT3+/r///9wcHC7zdDx+Pf8/f3Bz9a/ztV9fn67vb2/zdW+0NG+zdS/ytjBztm8zNS2ys7r9fPs9fQu9nLsAAAALXRSTlMAISMlRRcEASHR1/IjCIRYGCLu6Ne8Zx4Po7e5oJSKfG5cOBAgSVNGLiUfFw02tziwAAAAAWJLR0Q90G1RWQAAAAd0SU1FB9sGDxIILIatMk8AAACYSURBVBjTXcrnDoIwGIXhunDh3ltxjyK4+0FxtW69/8sxlsRoz6+TJy9C7jxenz+gBMUPhbEewVE8NdSYgLhp6rP5YrkyEkkB6w0BYhGbUCflwhYArJ29p47qwkGGIzDG+A+c5OL8KRinX7jIxVUubnJxB8b/4AHwfKUz2Vy+IKBYKleqtXqj2dLaApROt9fXBsPReKIg9Ab9ySN00Ie3UgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMS0xMi0yNVQyMjowOTo1NSswMTowMHtBbt4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTEtMDYtMTVUMTg6MDg6NDQrMDI6MDBy+A54AAAAAElFTkSuQmCC"/> Document texte</li>
-                  </ul></li>`,
-        style: `top:${mousey - y5}px;left:${mousex - x5}px`,
-        events: {
-          'click': function(e) {
-            switch (e.target.id) {
-              case 'contxt-paste': {
-                pasteIcons(eloc)
-              };
-              break;
-            case 'contxt-newfolder': {
-
+    let
+    topaste = (typeof copiedIcons === 'undefined') ? window.parent.copiedIcons : copiedIcons,
+    letsPaste = topaste ? ((topaste.length > 0) ? '<li id="contxt-paste">Coller</li>' : '') : '',
+    context = generateElement({
+      tag: 'ul',
+      attribs: {
+        'class': 'temp-context-menu',
+        'id': 'temp-context-menu',
+      },
+      content: `<li id="contxt-reorganize">Réorganiser les icones</li>
+                ${letsPaste}
+                <hr/>
+                <li class="context-parent">Nouveau
+                <ul>
+                  <li id="contxt-newfolder"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABa0lEQVR4nKWSPUsDQRCGn3MPDrWxUgKCGLCwESEgamlhJ1iYvyAIWljYCX6VFgELIWJpqQiCFhYWFoKQSkvBdGr6JHfJZXYs7vJhEhLFgWF3YeeZd4YX/hlOn7f+GpDLplRVsdZirWVh8yUJFIByXxlx8Y94zEwrMA8MxY3aM1KQy6Y0tZ4Dztqw6zwcTyEiiEhDmYiwelRIAl+A76oqBCcg0gbIsLTz1qH2encUY8yaiFwBeef5dFbn0mkIQ54uL7uOGIYhtVqtkarRblf2P5KutRZKJZ5ubljceu27Lz4PILHHxfYwxpi1CFAs4nlelz10RiWfx0ucIdHIE66IQBA0ZBEEPQG+7+MB1loAx40vVKvV6Eex2Bcw0gTgxlKagFKpJ6BcjnwVAQaagEql8msFQH1kdYDJ28Px97pJ6mergVqNZK1FVdk4H7hzHOfZIbLqjDFmGRjr2f5nFETkvu7pobh48A8AHyh8A7Ih5wdbGTd7AAAAAElFTkSuQmCC" /> Dossier</li>
+                  <li id="contxt-newfile-text"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAA7VBMVEUAAACUYwCMXQCFWACOXwBqRwAAAAAAAAD39/evhieUbxmOdloAAAAAAACens8AAAAAAAAAAAC/xsW2u7uRlZRqbGwAAAAAAAAAAACboLF3f39PVFQXGRkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUv0qQajCEbWydglx3d8G8qpGNeG65ttOpkG6+tLp3d8DExuKGaEHp9PLs9vT3+/r///9wcHC7zdDx+Pf8/f3Bz9a/ztV9fn67vb2/zdW+0NG+zdS/ytjBztm8zNS2ys7r9fPs9fQu9nLsAAAALXRSTlMAISMlRRcEASHR1/IjCIRYGCLu6Ne8Zx4Po7e5oJSKfG5cOBAgSVNGLiUfFw02tziwAAAAAWJLR0Q90G1RWQAAAAd0SU1FB9sGDxIILIatMk8AAACYSURBVBjTXcrnDoIwGIXhunDh3ltxjyK4+0FxtW69/8sxlsRoz6+TJy9C7jxenz+gBMUPhbEewVE8NdSYgLhp6rP5YrkyEkkB6w0BYhGbUCflwhYArJ29p47qwkGGIzDG+A+c5OL8KRinX7jIxVUubnJxB8b/4AHwfKUz2Vy+IKBYKleqtXqj2dLaApROt9fXBsPReKIg9Ab9ySN00Ie3UgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMS0xMi0yNVQyMjowOTo1NSswMTowMHtBbt4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTEtMDYtMTVUMTg6MDg6NDQrMDI6MDBy+A54AAAAAElFTkSuQmCC"/> Document texte</li>
+                </ul></li>`,
+      style: `top:${mousey - y5}px;left:${mousex - x5}px`,
+      events: {
+        'click': function(e) {
+          switch (e.target.id) {
+            case 'contxt-paste': {
+              pasteIcons(eloc)
             };
             break;
-            case 'contxt-newfile-text': {
+          case 'contxt-newfolder': {
 
-            };
-            break;
-            case 'contxt-reorganize': {
-              document.querySelectorAll('.icon').forEach(function(a) {
-                a.style.position = a.style.top = a.style.left = '';
-              });
-              getIconsPositions();
-            };
-            break;
-            }
-            context.remove();
+          };
+          break;
+          case 'contxt-newfile-text': {
+
+          };
+          break;
+          case 'contxt-reorganize': {
+            document.querySelectorAll('.icon').forEach(function(a) {
+              a.style.position = a.style.top = a.style.left = '';
+            });
+            getIconsPositions();
+          };
+          break;
           }
-        },
-        appendIn: document.querySelector('.workspace')
-      });
+          context.remove();
+        }
+      },
+      appendIn: document.querySelector('.workspace')
+    });
   },
 
   copyCutIcons = () => {
-    let tocopy = (typeof copiedIcons === 'undefined') ? window.parent.copiedIcons : copiedIcons,
-      iscut = (typeof isCutFile === 'undefined') ? window.parent.isCutFile : isCutFile;
+    let
+    tocopy = (typeof copiedIcons === 'undefined') ? window.parent.copiedIcons : copiedIcons,
+    iscut = (typeof isCutFile === 'undefined') ? window.parent.isCutFile : isCutFile;
 
     iscut && tocopy && tocopy.forEach(function(a) {
       a.classList.remove('cut')
@@ -211,7 +205,6 @@ const
       window.parent.copiedIcons = copied_icos
     } else {
       copiedIcons = copied_icos
-
     }
   },
   pasteIcons = () => {
@@ -344,7 +337,6 @@ const
     setTimeout(closeBalloon, 10000);
   },
   renameIcon = () => {
-
     let c = document.querySelectorAll('.focusedicon');
     if (c.length == 1) {
       renamedIcon = c[0];
@@ -437,14 +429,20 @@ const
         }
         clearIconSelection(this);
 
-        let shiftX = event.clientX - this.getBoundingClientRect().left,
-            shiftY = event.clientY - this.getBoundingClientRect().top;
+        let parent = this.closest('.workspace'),
+            adjustX = parent.scrollLeft - parent.getBoundingClientRect().left - e.clientX + this.getBoundingClientRect().left,
+            adjustY = parent.scrollTop - parent.getBoundingClientRect().top - e.clientY + this.getBoundingClientRect().top;
         this.style.position = 'absolute';
-        this.style.zIndex = 1000;
-        moveAt(e.pageX, e.pageY);
+
         function moveAt(pageX, pageY) {
-          ico.style.left = pageX - shiftX + 'px';
-          ico.style.top = pageY - shiftY + 'px';
+          /*console.log('pageY : '+pageY,
+                      '\n+ parent.scrollTop : ' + parent.scrollTop,
+                      '\n- parent.Rect().top : ' + parent.getBoundingClientRect().top,
+                      '\n- e.clientY : ' + e.clientY,
+                      '\n+ icon.Rect().top : ' + ico.getBoundingClientRect().top)*/
+
+          ico.style.left = pageX + adjustX + 'px';
+          ico.style.top = pageY + adjustY + 'px';
         }
         function onMouseMove(e) {
           moveAt(e.pageX, e.pageY);
@@ -455,15 +453,16 @@ const
           let droppableBelow = elemBelow.closest('.dropzone');
           if (currentDroppable != droppableBelow) {
             if (currentDroppable) {
-              leaveDroppable(currentDroppable);
+              doIdrop = false;
+              $id('taskbar-quicklaunch').classList.remove('hovered')
             }
             currentDroppable = droppableBelow;
             if (currentDroppable) {
-              enterDroppable(currentDroppable);
+              doIdrop = currentDroppable;
+              $id('taskbar-quicklaunch').classList.add('hovered')
             }
           }
         }
-
         document.addEventListener('mousemove', onMouseMove);
 
         var doIdrop;
@@ -477,7 +476,9 @@ const
             let clone = ico.cloneNode(true);
             clone.addEventListener('click', function(){
               openWindow(this)
-            })
+            });
+            clone.querySelector('.icon-img').classList.remove('x32')
+            clone.querySelector('.icon-img').classList.add('x16')
             doIdrop.appendChild(clone);
             recalcDropable(doIdrop);
           }
@@ -485,12 +486,7 @@ const
           doIdrop = false;
           getIconsPositions()
         };
-        function enterDroppable(elem) {
-          doIdrop = currentDroppable;
-        }
-        function leaveDroppable(elem) {
-          doIdrop = false;
-        }
+
       }
   });
   ico.addEventListener('keydown', function(e) {
@@ -585,7 +581,7 @@ iconContextMenu = (e, a) => {
   curSel.style.height = y4 - y3 + 'px';
   iconsPos.forEach(function(a, b) {
     let x = a[0] - x6,
-      y = a[1] - y6;
+        y = a[1] - y6;
     if (x > x3 && x < x4 && y < y4 && y > y3) {
       document.querySelectorAll('.icon')[b].classList.add('focusedicon');
     } else {
@@ -596,11 +592,11 @@ iconContextMenu = (e, a) => {
 
 document.addEventListener('mousedown', function(e) {
   let t = e.target,
-    ws = document.querySelector('.workspace');
-  x5 = ws.getBoundingClientRect().left;
-  y5 = ws.getBoundingClientRect().top
-  x6 = ws.scrollLeft;
-  y6 = ws.scrollTop;
+      ws = document.querySelector('.workspace');
+      x5 = ws.getBoundingClientRect().left;
+      y5 = ws.getBoundingClientRect().top
+      x6 = ws.scrollLeft;
+      y6 = ws.scrollTop;
 
   if (t.closest('.window')) {
     makeItFocused(t.closest('.window'));
@@ -636,8 +632,8 @@ document.querySelector('.workspace').addEventListener('mousemove', function(e) {
   }
 }, !1);
 document.addEventListener('mouseup', function(e) {
+  $id('taskbar-quicklaunch').classList.remove('hovered');
   drawSelection = false;
-  quickLauchDrag = false;
   curSel && curSel.remove();
   curSel = void 0;
 }, !1);
@@ -690,7 +686,7 @@ document.addEventListener('contextmenu', (e) => {
 document.addEventListener('mousemove', (e) => {
   mousex = e.pageX;
   mousey = e.pageY;
-  tooltip && tooltip.remove();
+  //tooltip && tooltip.remove();
 });
 
 window.addEventListener('resize', () => {
@@ -751,7 +747,7 @@ window.addEventListener('focus', function(e) {
 
 getIconsPositions();
 
-document.querySelectorAll('.icon').forEach(a => {
+document.querySelector('.workspace').querySelectorAll('.icon').forEach(a => {
   generateIconsActions(a);
 });
 
@@ -788,8 +784,8 @@ document.addEventListener('mousemove', function(e) {
 function generateScrollbars() {
   document.querySelectorAll('.scroller').forEach(function(a) {
     let overflowX = a.scrollWidth > a.clientWidth,
-      overflowY = a.scrollHeight > a.clientHeight,
-      overflowXY = overflowX && overflowY;
+        overflowY = a.scrollHeight > a.clientHeight,
+        overflowXY = overflowX && overflowY;
     overflowXY && a.parentNode.classList.add('scrollbar--both');
 
     function scrollHand(f, dir) {
@@ -893,6 +889,7 @@ function generateScrollbars() {
     }
   });
 }
+/*
 var tooltip;
 document.addEventListener('mouseover', function(e) {
   let t = e.target;
@@ -923,7 +920,7 @@ document.addEventListener('mouseout', function(e) {
   }
 });
 
-
+*/
 
 document.addEventListener('DOMContentLoaded', function() {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
