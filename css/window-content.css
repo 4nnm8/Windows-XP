@@ -2,6 +2,8 @@
 @import "initial.css";
 @import "workspace.css";
 @import "forms.css";
+@import "sprites.css";
+
 
 html, body {
   height: 100vh;
@@ -131,11 +133,18 @@ input[type="checkbox"][id^="box"]:checked + label .collapser {
   color: #000
 }
 .left-panel-link {
-  display: block
+  display: flex;
+  margin-bottom: 4px
 }
 .left-panel-link:hover {
   color: #5598ff;
   text-decoration: underline;
+}
+.left-panel-link .x16 {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px
 }
 
 .window-body {
@@ -207,9 +216,7 @@ input[type="checkbox"][id^="box"]:checked + label .collapser {
    color:#fff
 }
 
-.wt-dropdown ul li:hover .wt-checked::before {
-  filter: invert(100%);
-}
+
 .wt-dropdown hr {
   margin:0;
   height:0;
@@ -272,10 +279,10 @@ input[type="checkbox"][id^="box"]:checked + label .collapser {
 .wt-dropdown ul li .wt-key {
   text-align:right
 }
-.wt-radio, .wt-checked {
+.wt-bullet, .wt-checked {
   position:relative
 }
-.wt-radio::before {
+.wt-bullet::before {
   content:""; /*25CF*/
   display:block;
   position:absolute;
@@ -283,18 +290,27 @@ input[type="checkbox"][id^="box"]:checked + label .collapser {
   height: 7px;
   background:#000;
   border-radius: 100%;
-  top: 6px;
-  left: -14px
+  top: 7px;
+  left: -12px
 }
 .wt-checked::before {
   content: "";
   display:block;
   position:absolute;
-  width: 8px;
+  top: 6px;
+  left: -11px;
+  width: 5px;
   height: 8px;
-  top: 7px;
-  left: -14px;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIBAMAAAA2IaO4AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAACRQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAA0tLSDAwMAAAACgoK0tLShg7x8AAAAAx0Uk5TABSFqOCW/y7/Sv9SnlrS3QAAACxJREFUeJxjYGBgEAJiRhMGUQbhFIaKQDNPhrLFKRMYuNM8geJbJgAJTgYGAGuJBjBHq/Q4AAAAAElFTkSuQmCC');
+  border-color: #000;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+ul > li:hover > .wt-checked::before {
+  border-color: #fff;
+}
+ul > li:hover > .wt-bullet::before {
+  background-color: #fff;
 }
 .grayed {
   color:#c7b4be

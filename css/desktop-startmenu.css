@@ -10,7 +10,7 @@
   border-radius: 4px 4px 0 0;
   box-shadow: 3px -1px 3px 0 #304879;
   display: none;
-  z-index: 1000;
+  z-index: 9999;
 } #start-menu.show {display: block}
   #start-menu  #start-menu-header {
   font-family: 'Franklin Gothic Medium';
@@ -137,6 +137,11 @@ color: black;
 white-space: nowrap;
 font-size: 11px;
 }
+#start-menu .sub-menu-item .x16 {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
 .sub-menu-item.folder::after {
   top: 9px;
   right: 6px;
@@ -151,16 +156,10 @@ font-size: 11px;
 .sub-menu-item.folder:hover  > .sub-menu {
   display: block !important
 }
-#start-menu .sub-menu-item::before {
-  content: '';
-  width: 16px; height: 16px;
-  display: block;
-  background-image: var(--bg-image);
-  background-size: 16px 16px;
-  margin-right: 5px;
-}
 #start-menu .sub-menu-item.folder::before {
   content: '';
+  display: block;
+  margin-right: 5px;
   width: 16px; height: 16px;
   display: block;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAKUSURBVDhPjZJrSJNhFMffDxlu6sxCRGdbm0Mr7DLf0eVDloqal6APZWVkl4GUSkjLXHkt1MpLS5HajIIiDMSGeCkNl2aMWbrKmjI3zVlWoIaIXT7+6zkage6DB/5w/u9znt97nuc83L/oN/Do00fg1a2tsNRuxsLn5QXbvDh6dBvgE8Qf8w1UbhSuVfovlC6N/5sNiwSYyhV4dlWGpyUStF0JRktxEJoKAiAK5sMJqlCs5Fjb+F0N/LixVG7CmOcPURCv9xIrtxGEnRlTpcDXYphrwt2quyoMnddD0F4qRetlMXXCxCAcuzC4LqGxTIVVGUZwafVuFZDZiNjSdlKxVoNsNQ/vv51w7A+wnYWhKBrqB0PIbR5xq7zWUZR0jKGy6xPqms04nnkQPmJVG8duG/3p0BdGwdJnRVIdhwqLFjOTdsw1lsN08gRm7S/IPzI04P5tE+VVRUfYlJ5z7HwMUHtxFwFyjBz05iwqmn5cA1t2GmYHO8m/a0rHTV0v5ZWFhxmgi2OjYgBdzg4CvOy2YtRuo6Kh9wOwvh7A5PgAebY2aBukvKLg0DyAzZkByrN5Avzq08AxXE9FY99cSH/ihPOzk/y4/hqmG6rnAfkpEIlVJnpM7JGUZW0hQIahFh/e6qiox+5ApHU/LCMfySvTjZip1lC+N1Xz00+yvYMAokBVqkAeb2aAiV41ppz3qKjlzTDOtH6B3eUgP5GvxmTLXcoTj+bMSTbFPySAV/BOhUdYygUGYIvLUXKa9rtMmXiHANzqBC/P0GTeI/SATiBP6PWUxzkEsrgxgSzW5U5CefyIKCTaLI/YVzIP4PgV3ooEP8G6KJVQGnVKKNl9TiiNzBVIIrXu5C3dc943JOb0mvVJMX8AhexLz8UlK5AAAAAASUVORK5CYII=);
@@ -174,11 +173,7 @@ font-size: 11px;
   border-color: transparent transparent transparent #fff;
 }
 
-.sub-menu > .sub-menu-item img {
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-}
+
 .sub-menu hr {
   height: 2px;
   border:0;

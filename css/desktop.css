@@ -1,6 +1,8 @@
 @charset "UTF-8";
 @import "initial.css";
 @import "workspace.css";
+@import "sprites.css";
+@import "forms.css";
 @import "desktop-taskbar.css";
 @import "desktop-startmenu.css";
 @import "desktop-windows.css";
@@ -10,7 +12,7 @@ margin: 0; padding: 0;
 width: 100vw; height: 100vh;
 overflow: hidden;
 font-family: Tahoma, sans-serif; font-size: 11px; color: #505051;
-background: rgb(0, 78, 152) url("../images/xp.jpg");
+background: #004E98 url("../images/bliss.jpg");
 background-size: cover;
 }
   #desktop-area {

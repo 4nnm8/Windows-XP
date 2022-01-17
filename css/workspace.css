@@ -21,7 +21,7 @@ https://codepen.io/pure-css/pen/bddggP
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
   font-size: .9rem;
-  z-index: 1;
+  z-index: 2;
   pointer-events: auto;
   cursor: url('../cursors/default.cur'), default;
 }
@@ -137,7 +137,7 @@ https://codepen.io/pure-css/pen/bddggP
   border: 1px solid #aca899;
   box-shadow: 2px 2px 2px 0 rgba(0,0,0,.3);
   padding: 0 2px;
-  min-width: 200px
+  min-width: 200px;
 }
 .temp-context-menu li {
   color: #000;

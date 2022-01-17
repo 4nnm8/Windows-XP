@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 .userpic {
   border: 2px solid #b5c5e1;
   border-radius: 4px;
@@ -7,31 +6,268 @@
   box-sizing: content-box;
   margin: 0 7px;
   background-image: url('../images/userpics.png');
-  width: 48px;
-  height: 48px;
+  width: 48px; height: 48px;
 }
+.x16 {
+  background-image: url('../images/ico-sprite_16.png');
+}
+.x32 {
+  background-image: url('../images/ico-sprite_32.png');
+  /*width: 32px; height: 32px;*/
+}
+.x24 {
+  background-image: url('../images/ico-sprite_24.png');
+  width: 24px; height: 24px;
+}
+.x48 {
+  background-image: url('../images/ico-sprite_48.png');
+  width: 48px; height: 48px;
+}
+.upic-airplane{background-position:0 0}
+.upic-astronaut{background-position:-48px 0}
+.upic-ball{background-position:0 -48px}
+.upic-beach{background-position:-48px -48px}
+.upic-butterfly{background-position:-96px 0}
+.upic-car{background-position:-96px -48px}
+.upic-cat{background-position:0 -96px}
+.upic-chess{background-position:-48px -96px}
+.upic-dirt_bike{background-position:-96px -96px}
+.upic-dog{background-position:-144px 0}
+.upic-drip{background-position:-144px -48px}
+.upic-duck{background-position:-144px -96px}
+.upic-fish{background-position:0 -144px}
+.upic-frog{background-position:-48px -144px}
+.upic-guest{background-position:-96px -144px}
+.upic-guitar{background-position:-144px -144px}
+.upic-horses{background-position:-192px 0}
+.upic-kick{background-position:-192px -48px}
+.upic-lift_off{background-position:-192px -96px}
+.upic-palm_tree{background-position:-192px -144px}
+.upic-pink_flower{background-position:0 -192px}
+.upic-red_flower{background-position:-48px -192px}
+.upic-skater{background-position:-96px -192px}
+.upic-snowflake{background-position:-144px -192px}
 
-.bg-airplane{background-position:0 0}
-.bg-astronaut{background-position:-48px 0}
-.bg-ball{background-position:0 -48px}
-.bg-beach{background-position:-48px -48px}
-.bg-butterfly{background-position:-96px 0}
-.bg-car{background-position:-96px -48px}
-.bg-cat{background-position:0 -96px}
-.bg-chess{background-position:-48px -96px}
-.bg-dirt_bike{background-position:-96px -96px}
-.bg-dog{background-position:-144px 0}
-.bg-drip{background-position:-144px -48px}
-.bg-duck{background-position:-144px -96px}
-.bg-fish{background-position:0 -144px}
-.bg-frog{background-position:-48px -144px}
-.bg-guest{background-position:-96px -144px}
-.bg-guitar{background-position:-144px -144px}
-.bg-horses{background-position:-192px 0}
-.bg-kick{background-position:-192px -48px}
-.bg-lift_off{background-position:-192px -96px}
-.bg-palm_tree{background-position:-192px -144px}
-.bg-pink_flower{background-position:0 -192px}
-.bg-red_flower{background-position:-48px -192px}
-.bg-skater{background-position:-96px -192px}
-.bg-snowflake{background-position:-144px -192px}
+.x16.file-exe {background-position: -0 -0}
+.x16.file-bat {background-position: -16px -0}
+.x16.file-ukn1 {background-position: -0 -16px}
+.x16.file-doc {background-position: -16px -16px}
+.x16.ukn1 {background-position: -32px -0}
+.x16.file-default {background-position: -32px -16px}
+.x16.file-stack {background-position: -0 -32px}
+.x16.chipset {background-position: -16px -32px}
+.x16.executable {background-position: -32px -32px}
+.x16.fax {background-position: -48px -0}
+.x16.app-cmd {background-position: -48px -16px}
+.x16.nm-2 {background-position: -48px -32px}
+.x16.nm-3 {background-position: -0 -48px}
+.x16.contrast {background-position: -16px -48px}
+.x16.ukn3 {background-position: -32px -48px}
+.x16.ukn4 {background-position: -48px -48px}
+.x16.workgroup2 {background-position: -64px -0}
+.x16.ukn5 {background-position: -64px -16px}
+.x16.folder-open {background-position: -64px -32px}
+.x16.ukn6 {background-position: -64px -48px}
+.x16.nm-signal-00 {background-position: -0 -64px}
+.x16.wifi-active-green {background-position: -16px -64px}
+.x16.file-default {background-position: -32px -64px}
+.x16.wifi-active-grey {background-position: -48px -64px}
+.x16.wir-set-wiz {background-position: -64px -64px}
+.x16.nm-et-alert {background-position: -80px -0}
+.x16.folder-unk {background-position: -80px -16px}
+.x16.gnome-netstatus-rx {background-position: -80px -32px}
+.x16.nm-wl-alert {background-position: -80px -48px}
+.x16.folder2 {background-position: -80px -64px}
+.x16.outlook {background-position: -0 -80px}
+.x16.util-manager {background-position: -16px -80px}
+.x16.connect-creating {background-position: -32px -80px}
+.x16.gnome-searchtool {background-position: -48px -80px}
+.x16.stock-file-properties {background-position: -64px -80px}
+.x16.file-txt {background-position: -80px -80px}
+.x16.solitaire {background-position: -96px -0}
+.x16.explorer {background-position: -96px -16px}
+.x16.ukn10 {background-position: -96px -32px}
+.x16.folder-video {background-position: -96px -48px}
+.x16.file-temp {background-position: -96px -64px}
+.x16.catalogue {background-position: -96px -80px}
+.x16.folder-pictures {background-position: -0 -96px}
+.x16.volume {background-position: -16px -96px}
+.x16.app-wlm-off {background-position: -32px -96px}
+.x16.exec {background-position: -48px -96px}
+.x16.defaults {background-position: -64px -96px}
+.x16.perif {background-position: -80px -96px}
+.x16.folder-music {background-position: -96px -96px}
+.x16.folder-dl {background-position: -112px -0}
+.x16.19-7 {background-position: -112px -16px}
+.x16.stock-folder-copy {background-position: -112px -32px}
+.x16.virtualkeyboard {background-position: -112px -48px}
+.x16.file-png {background-position: -112px -64px}
+.x16.file-img2 {background-position: -112px -80px}
+.x16.file-jpg {background-position: -112px -96px}
+.x16.nm-1 {background-position: -0 -112px}
+.x16.hyperterminal {background-position: -16px -112px}
+.x16.app-calc {background-position: -32px -112px}
+.x16.narrator {background-position: -48px -112px}
+.x16.scheduledtaks {background-position: -64px -112px}
+.x16.alert {background-position: -80px -112px}
+.x16.folder-font {background-position: -96px -112px}
+.x16.workgroup {background-position: -112px -112px}
+.x16.sysinfo {background-position: -128px -0}
+.x16.file-bmp {background-position: -128px -16px}
+.x16.file-video {background-position: -128px -32px}
+.x16.my-computer {background-position: -128px -48px}
+.x16.cross {background-position: -128px -64px}
+.x16.lock {background-position: -128px -80px}
+.x16.hardisk {background-position: -128px -96px}
+.x16.security-alert {background-position: -128px -112px}
+.x16.file8 {background-position: -0 -128px}
+.x16.forbidden {background-position: -16px -128px}
+.x16.security-notok {background-position: -32px -128px}
+.x16.security-center {background-position: -48px -128px}
+.x16.logoff {background-position: -64px -128px}
+.x16.app-notepad {background-position: -80px -128px}
+.x16.app-outlook {background-position: -96px -128px}
+.x16.file-music {background-position: -112px -128px}
+.x16.stock-folder-move {background-position: -128px -128px}
+.x16.restorefiles {background-position: -144px -0}
+.x16.file-ini {background-position: -144px -16px}
+.x16.desktop {background-position: -144px -32px}
+.x16.acc-wizard {background-position: -144px -48px}
+.x16.net-con {background-position: -144px -64px}
+.x16.batch {background-position: -144px -80px}
+.x16.new-con-wiz {background-position: -144px -96px}
+.x16.speaker-mute {background-position: -144px -112px}
+.x16.app-charmap {background-position: -144px -128px}
+.x16.error {background-position: -0 -144px}
+.x16.speaker {background-position: -16px -144px}
+.x16.security-ok {background-position: -32px -144px}
+.x16.my-documents {background-position: -48px -144px}
+.x16.file-search {background-position: -64px -144px}
+.x16.paremeters {background-position: -80px -144px}
+.x16.file-ie {background-position: -96px -144px}
+.x16.278-7 {background-position: -112px -144px}
+.x16.go {background-position: -128px -144px}
+.x16.app-wordpad {background-position: -144px -144px}
+.x16.phonebook {background-position: -160px -0}
+.x16.file-hlp {background-position: -160px -16px}
+.x16.defrag {background-position: -160px -32px}
+.x16.16 {background-position: -160px -48px}
+.x16.140-8 {background-position: -160px -64px}
+.x16.folder-app {background-position: -160px -80px}
+.x16.more {background-position: -160px -96px}
+.x16.scanner {background-position: -160px -112px}
+.x16.app-pinball {background-position: -160px -128px}
+.x16.folder-search {background-position: -160px -144px}
+.x16.app-wmm {background-position: -0 -160px}
+.x16.file-font {background-position: -16px -160px}
+.x16.search {background-position: -32px -160px}
+.x16.331-8 {background-position: -48px -160px}
+.x16.activation {background-position: -64px -160px}
+.x16. {background-position: -80px -160px}
+.x16.presentation {background-position: -96px -160px}
+.x16.app-winmine {background-position: -112px -160px}
+.x16.gtk-about {background-position: -128px -160px}
+.x16.file-dll {background-position: -144px -160px}
+.x16.app-mspaint {background-position: -160px -160px}
+.x16.diskcleanup {background-position: -176px -0}
+.x16.drive-sd {background-position: -176px -16px}
+.x16.floppy {background-position: -176px -32px}
+.x16.169-8 {background-position: -176px -48px}
+.x16.cd {background-position: -176px -64px}
+.x16.gtk-remove {background-position: -176px -80px}
+.x16.file-help {background-position: -176px -96px}
+.x16.app-wmp {background-position: -176px -112px}
+.x16.printer {background-position: -176px -128px}
+.x16.info {background-position: -176px -144px}
+.x16.app-trash {background-position: -176px -160px}
+.x16.327-8 {background-position: -0 -176px}
+.x16.folder3 {background-position: -16px -176px}
+.x16.file-font {background-position: -32px -176px}
+.x16.11-8 {background-position: -48px -176px}
+.x16.stock-help-add-bookmark {background-position: -64px -176px}
+.x16.file-fonts2 {background-position: -80px -176px}
+.x16.camera2 {background-position: -96px -176px}
+.x16.workstation {background-position: -112px -176px}
+.x16.folder8 {background-position: -128px -176px}
+.x16.sync {background-position: -144px -176px}
+.x16.1003-1 {background-position: -160px -176px}
+.x16.file-playlist {background-position: -176px -176px}
+.x16.magnifier {background-position: -192px -0}
+.x16.cd2 {background-position: -192px -16px}
+.x16.backup {background-position: -192px -32px}
+.x16.app-trash-full {background-position: -192px -48px}
+.x16.178-8 {background-position: -192px -64px}
+.x16.arrow2 {background-position: -192px -80px}
+.x16.cd4 {background-position: -192px -96px}
+.x16.startmenu {background-position: -192px -112px}
+.x16.282-7 {background-position: -192px -128px}
+.x16.sounds {background-position: -192px -144px}
+.x16.241-1 {background-position: -192px -160px}
+.x16.244-5 {background-position: -192px -176px}
+.x16.311-5 {background-position: -0 -192px}
+.x16.file-pdf {background-position: -16px -192px}
+.x16.drives {background-position: -32px -192px}
+.x16.update {background-position: -48px -192px}
+.x16.mail {background-position: -64px -192px}
+.x16.accessibility {background-position: -80px -192px}
+.x16.camera {background-position: -96px -192px}
+.x16.cd-music {background-position: -112px -192px}
+.x16.folder6 {background-position: -128px -192px}
+.x16.viewmag {background-position: -144px -192px}
+.x16.276-5 {background-position: -160px -192px}
+.x16.273-5 {background-position: -176px -192px}
+.x16.kfm-home {background-position: -192px -192px}
+.x16.cd3 {background-position: -208px -0}
+.x16.edit-clear-symbolic {background-position: -208px -16px}
+.x16.cd1 {background-position: -208px -32px}
+.x16.media-eject-symbolic {background-position: -208px -48px}
+.x16.redo {background-position: -208px -64px}
+.x16.net-set-wiz {background-position: -208px -80px}
+.x16.add {background-position: -208px -96px}
+.x16.theme {background-position: -208px -112px}
+.x16.theme2 {background-position: -208px -128px}
+.x16.folder4 {background-position: -208px -144px}
+.x16.remote {background-position: -208px -160px}
+.x16.undo {background-position: -208px -176px}
+.x16.question {background-position: -208px -192px}
+.x16.edit-cut-symbolic {background-position: -0 -208px}
+.x16.users {background-position: -16px -208px}
+.x16.139-8 {background-position: -32px -208px}
+.x16.controlpanel {background-position: -48px -208px}
+.x16.view-presentation {background-position: -64px -208px}
+.x16.ethernet {background-position: -80px -208px}
+.x16.star {background-position: -96px -208px}
+.x16.x247-1 {background-position: -112px -208px}
+.x16.my-network {background-position: -128px -208px}
+.x16.batch {background-position: -144px -208px}
+.x16.application-exit {background-position: -160px -208px}
+.x16.msn {background-position: -176px -208px}
+.x16.stock-new-window {background-position: -192px -208px}
+.x16.app-wlm-away {background-position: -208px -208px}
+.x16.copy {background-position: -224px -0}
+.x16.document-save-symbolic {background-position: -224px -16px}
+.x16.app-wlm-away2 {background-position: -224px -32px}
+.x16.app-wlm-busy {background-position: -224px -48px}
+.x16.app-wlm-online {background-position: -224px -64px}
+.x16.dialog-apply {background-position: -224px -80px}
+.x16.14-8 {background-position: -224px -96px}
+.x16.visualization {background-position: -224px -112px}
+.x16.app-wlm-offline {background-position: -224px -128px}
+.x16.ie {background-position: -224px -144px}
+.x16.go-home-symbolic {background-position: -224px -160px}
+.x16.unavailable {background-position: -224px -176px}
+.x16.down {background-position: -224px -192px}
+.x16.back {background-position: -224px -208px}
+.x16.forward {background-position: -0 -224px}
+.x16.addremove {background-position: -16px -224px}
+.x16.go-up-symbolic {background-position: -32px -224px}
+.x16.edit-find-replace {background-position: -48px -224px}
+.x16.document-new {background-position: -64px -224px}
+.x16.help {background-position: -80px -224px}
+.x16.edit-paste-symbolic {background-position: -96px -224px}
+.x16.gtk-stop {background-position: -112px -224px}
+.x16.xarchiver-add {background-position: -128px -224px}
+.x16.gtk-refresh {background-position: -144px -224px}
+.x16.document-properties {background-position: -160px -224px}
+.x16.file-zip {background-position: -176px -224px}
+.x16.253 {background-position: -192px -224px}x
